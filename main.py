@@ -245,30 +245,31 @@ def nextweek():
             project[key] = ''
         else:
             if wages.get(key)[-1] == 1:
-                print(due[key])
-                print("Player " + key.upper() + ": ")
-                cost = ((wages.get(key)[0] * (workers[key] * ratio.get(key)[0])) + (wages.get(key)[1] * (workers[key] * ratio.get(key)[1])) + (wages.get(key)[2] * (workers[key] * ratio.get(key)[2])))
-                moneychange(cost, key)
+                print("Player " + key.upper() + ": Wages")
+                cost = ((wages.get(key)[0] * (workers[key] * ratio.get(key)[0])) + (
+                            wages.get(key)[1] * (workers[key] * ratio.get(key)[1])) + (
+                                    wages.get(key)[2] * (workers[key] * ratio.get(key)[2])))
+                moneychange(-cost, key)
                 due[key] -= 1
-                print(due[key])
             else:
                 due[key] -= 1
-    
+
     for key in monthpay:
         if monthpay.get(key)[-1] == 0:
             print("Player " + key.upper() + " does not need to repay anything")
-            break
-        else: 
-            if week % monthpay.get(key)[1] == 0: 
-                monthpay.get(key)[-1] = (monthpay.get(key)[-1] * monthpay.get(key)[0]) + monthpay.get(key)[-1]
+        else:
+            if week % list(monthpay.get(key))[1] == 0:
+                monthpay.get(key)[-1] = (monthpay.get(key)[-1] * (monthpay.get(key)[0] / 100) + monthpay.get(key)[-1])
                 print("Player " + key.upper() + ", you now owe $" + str(list(monthpay.get(key))[-1]))
             else:
-                break
+                pass
+
+
     for key in due:
         if due[key] == 0:
             break
         else:
-            break   # WILD CARDS!
+            break  # WILD CARDS!
 
     for key in money:
         if money[key] <= 0:
@@ -280,7 +281,7 @@ def nextweek():
     for key in stations:
         for item in stations[key]:
             moneychange(5000, key)
-            print("from " + item + "station")
+            print("from " + item + " station")
 
 
 factions = {'a': '', 'b': '', 'c': '', 'd': ''}
@@ -353,7 +354,7 @@ for key in wages:
 
             else:
                 print("select amount")
-                amount = input("> ")
+                amount = input("$> ")
                 try:
                     if groups == '4':
                         pay = [int(amount), int(amount), int(amount), 0]
@@ -410,5 +411,5 @@ while True:
             else:
                 buildtrack(starting[0], build, player, 0)
                 break
-        week += 1
-        nextweek()  # not complete
+    week += 1
+    nextweek()  # not complete
