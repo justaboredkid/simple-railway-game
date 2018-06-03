@@ -14,13 +14,13 @@ cities = {                # ON: Ontario, QC: Quebec, AB: Alberta, MA: manitoba, 
     # ID: Idaho, PE: Pennsylvania, NY: nyc, ND: North Dakota, NH: New Hampshire
     "Toronto": ["on", 43.654805, -79.380595],
     "Montreal": ["qc",  45.501080, -73.568140],
-    # "Calgary": ["ab", 51.049451, -114.056433],
+    # "Calgary": ["ab", 51.049451, -114.056433], no destination
     "Ottawa": ["on",  45.415387, -75.565701],
     "Edmonton": ["ab", 53.594894, -113.463576],
     "Winnipeg": ["ma", 49.897735, -97.134426],
     "Brampton": ["on", 43.735508, -79.767844],
     "Seattle": ["wa", 47.607286, -122.334005],
-    # "Gillette": ["wy", 44.291653, -105.500368],
+    # "Gillette": ["wy", 44.291653, -105.500368], this one too
     "Moscow": ["id", 46.731839, -117.010040],
     "Philadelphia": ["pe", 39.961121, -75.160669],
     "Fargo": ["nd", 46.876391, -96.783252],
@@ -288,7 +288,7 @@ def nextweek():
 
 
 factions = {'a': '', 'b': '', 'c': '', 'd': ''}
-print("\nDisclaimer: This game is based on 1870s money, not 2018. Inflation applies.")
+print("\nDisclaimer: This game is based on 1860s money, not 2018. Inflation applies.")
 for key in factions:
     while True: 
         choice = input("\nPlayer " + key.upper() + ": Select how you are going to start your railway: (Government/Private) >")
