@@ -2,13 +2,6 @@ import random
 from math import sin, cos, sqrt, atan2, radians
 from fractions import Fraction
 
-# TO DO LIST
-# - lan play
-# - week algorithm
-# - gui
-# - Dead people (Fixed worker population?)
-# - wild card
-
 
 cities = {                # ON: Ontario, QC: Quebec, AB: Alberta, MA: manitoba, BC: duh, WA: Washington, WY: Wyoming,
     # ID: Idaho, PE: Pennsylvania, NY: nyc, ND: North Dakota, NH: New Hampshire
