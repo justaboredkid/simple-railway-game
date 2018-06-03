@@ -3,39 +3,33 @@ from math import sin, cos, sqrt, atan2, radians
 from fractions import Fraction
 
 
-cities = {                # ON: Ontario, QC: Quebec, AB: Alberta, MA: manitoba, BC: duh, WA: Washington, WY: Wyoming,
-    # ID: Idaho, PE: Pennsylvania, NY: nyc, ND: North Dakota, NH: New Hampshire
-    "Toronto": ["on", 43.654805, -79.380595],
-    "Montreal": ["qc",  45.501080, -73.568140],
-    # "Calgary": ["ab", 51.049451, -114.056433], no destination
-    "Ottawa": ["on",  45.415387, -75.565701],
-    "Edmonton": ["ab", 53.594894, -113.463576],
-    "Winnipeg": ["ma", 49.897735, -97.134426],
-    "Brampton": ["on", 43.735508, -79.767844],
-    "Seattle": ["wa", 47.607286, -122.334005],
-    # "Gillette": ["wy", 44.291653, -105.500368], this one too
-    "Moscow": ["id", 46.731839, -117.010040],
-    "Philadelphia": ["pe", 39.961121, -75.160669],
-    "Fargo": ["nd", 46.876391, -96.783252],
-    "Brooklyn": ["ny", 40.679016, -73.936774],
-    "Concord": ["nh", 43.206977, -71.527225],
+cities = {'Toronto': ['on', 43.654805, -79.380595],
+          'Montreal': ['qc', 45.501080, -73.568140],
+          'Ottawa': ['on', 45.415387, -75.565701],
+          'Edmonton': ['ab', 53.594894, -113.463576],
+          'Winnipeg': ['ma', 49.897735, -97.134426],
+          'Brampton': ['on', 43.735508, -79.767844],
+          'Seattle': ['wa', 47.607286, -122.334005],
+          'Moscow': ['id', 46.731839, -117.010040],
+          'Philadelphia': ['pe', 39.961121, -75.160669],
+          'Fargo': ['nd', 46.876391, -96.783252],
+          'Brooklyn': ['ny', 40.679016, -73.936774],
+          'Concord': ['nh', 43.206977, -71.527225],
+          'Springfield': ['il', 39.781697, -89.651612],
+          'Kamloops': ['bc', 50.687770, -120.347863]
+          }
 
-    }
-
-regions = {            # Snow means snow, artic means super cold
-    "bc": ["British Columbia", "mountains", "forest", "snow", "r1ainy", "ca"],
-    "qc": ["Quebec", "French", "snow", "arctic", "rainy", "ca"],
-    "on": ["Ontario", "snow", "cold", "ca"],
-    "ab": ["Alberta", "snow", "cold", "mountains", "ca"],
-    "ma": ["Manitoba", "ca"],
-    "wa": ["Washington", "rainy", "us"],
-    "wy": ["Wyoming", "dry", "windy", "extreme", "mountains", "us"],
-    "id": ["Idaho", "humid", "rainy", "freshwater", "us"],
-    "pe": ["Pennsylvania", "humid", "cold", "snow", "dry", "freshwater", "us"],
-    "ny": ["New York", "cold", "dry", "snow", "forest", "freshwater", "us"],
-    "nd": ["North Dakota", "hot", "humid", "mountains", "us"],
-    "nh": ["New Hampshire", "windy", "humid", "snow", "extreme", "mountains", "us"]
-}
+regions = {'bc': ['British Columbia', 'mountains', 'forest', 'snow', 'r1ainy', 'ca'],
+           'qc': ['Quebec', 'French', 'snow', 'arctic', 'rainy', 'ca'], 'on': ['Ontario', 'snow', 'cold', 'ca'],
+           'ab': ['Alberta', 'snow', 'cold', 'mountains', 'ca'], 'ma': ['Manitoba', 'ca'],
+           'wa': ['Washington', 'rainy', 'us'], 'wy': ['Wyoming', 'dry', 'windy', 'extreme', 'mountains', 'us'],
+           'id': ['Idaho', 'humid', 'rainy', 'freshwater', 'us'],
+           'pe': ['Pennsylvania', 'humid', 'cold', 'snow', 'dry', 'freshwater', 'us'],
+           'ny': ['New York', 'cold', 'dry', 'snow', 'forest', 'freshwater', 'us'],
+           'nd': ['North Dakota', 'hot', 'humid', 'mountains', 'us'],
+           'nh': ['New Hampshire', 'windy', 'humid', 'snow', 'extreme', 'mountains', 'us'],
+           'il': ['Illinois', 'us']
+           }
 
 
 def buildtrack(station, destination, player, devtag):
@@ -237,7 +231,7 @@ def start():
 def nextweek():
     for key in wages:
         if due[key] == 0:
-            print("Station " + project[key] + "has completed!")
+            print("Station " + project[key] + " has completed!")
             stations[key].append(project[key])
             project[key] = ''
         else:
@@ -393,11 +387,11 @@ while True:
             if key == starting[0]:
                 pass
             else:
-                length = buildtrack(starting[0], key, player, 1)
-                if length is not []:
+                l = buildtrack(starting[0], key, player, 1)
+                if l is None:
                     pass
                 else:
-                    distance.append([key, length])
+                    distance.append([key, regions[cities.get(key)[0]][0], l])
         print(distance, "\n")
         while True:
             build = input("Where to go first? >").title()
