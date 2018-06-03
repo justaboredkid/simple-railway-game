@@ -16,7 +16,12 @@ cities = {'Toronto': ['on', 43.654805, -79.380595],
           'Brooklyn': ['ny', 40.679016, -73.936774],
           'Concord': ['nh', 43.206977, -71.527225],
           'Springfield': ['il', 39.781697, -89.651612],
-          'Kamloops': ['bc', 50.687770, -120.347863]
+          'Kamloops': ['bc', 50.687770, -120.347863],
+          'Dallas': ['tx', 32.775833, -96.796667],
+          'Nashville': ['tn', 36.162725, -86.781820],
+          'Salt Lake City': ['ut', 40.75, -111.883333],
+          'Houston': ['tx', 29.762778, -95.383056],
+          'Atlanta': ['ga', 33.755, -84.39]
           }
 
 regions = {'bc': ['British Columbia', 'mountains', 'forest', 'snow', 'r1ainy', 'ca'],
@@ -28,7 +33,11 @@ regions = {'bc': ['British Columbia', 'mountains', 'forest', 'snow', 'r1ainy', '
            'ny': ['New York', 'cold', 'dry', 'snow', 'forest', 'freshwater', 'us'],
            'nd': ['North Dakota', 'hot', 'humid', 'mountains', 'us'],
            'nh': ['New Hampshire', 'windy', 'humid', 'snow', 'extreme', 'mountains', 'us'],
-           'il': ['Illinois', 'us']
+           'il': ['Illinois', 'us'],
+           'tx': ['Texas', 'us'],
+           'tn': ['Tennessee', 'us'],
+           'ut': ['Utah', 'us'],
+           'ga': ['Georgia', 'us']
            }
 
 
