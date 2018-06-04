@@ -129,7 +129,7 @@ def buildtrack(station, destination, player, devtag):
 
                     while True:
                         if wages.get(player)[-1] == 2:
-                            confirm = input("Total cost is $" + str(cost) + ". That is around $" + str(cost / length) + " per KM. Are you sure? (Y/N)>").lower()
+                            confirm = input("Total cost is $" + str(cost) + ". That is around $" + format(str(cost / length), '.2f') + " per KM. Are you sure? (Y/N)>").lower()
 
                             if confirm not in ['y', 'n']:
                                 print("Really?")
@@ -145,7 +145,7 @@ def buildtrack(station, destination, player, devtag):
                                     pass
                         else:
                             time = Fraction(-1, 50) * people + length
-                            confirm = input("Total cost is $" + str(cost) + ". That is around $" + str(cost / time) + " per week. Are you sure? (Y/N)>").lower()
+                            confirm = input("Total cost is $" + str(cost) + ". That is around $" + format(str(cost / time), '.2f') + " per week. Are you sure? (Y/N)>").lower()
                             if confirm == 'y':
                                 due[player] = time
                                 print("It will take " + str(due[player]) + " weeks to complete.")
@@ -314,7 +314,6 @@ for key in factions:
 
 for key in stations:
     while True:
-        print(stations)
         bgin = start()
         chosen = list(stations.values())
         country = project[key]
@@ -386,30 +385,36 @@ for key in wages:
             pass    
 
 
-while True:
-    for key in stations:    # Actual game play starts here
-        print("Player " + key.upper() + ": ")
-        distance = []
-        player = key
-        starting = list(stations.get(key))
-        print(starting)
-        for key in cities:
-            if key == starting[0]:
+
+for key in stations:    # Actual game play starts here
+    print("Player " + key.upper() + ": ")
+    distance = []
+    player = key
+    starting = list(stations.get(key))
+    print(starting)
+    for key in cities:
+        if key == starting[0]:
+            pass
+        else:
+            l = buildtrack(starting[0], key, player, 1)
+            if l is None:
                 pass
             else:
-                l = buildtrack(starting[0], key, player, 1)
-                if l is None:
-                    pass
-                else:
-                    distance.append([key, regions[cities.get(key)[0]][0], l])
-        print(distance, "\n")
-        while True:
-            build = input("Where to go first? >").title()
-            if build not in list(cities.keys()):
-                print("Umm... Wrong city.")
-                pass
-            else:
-                buildtrack(starting[0], build, player, 0)
-                break
+                distance.append([key, regions[cities.get(key)[0]][0], l])
+    print(distance, "\n")
+    while True:
+        build = input("Where to go first? >").title()
+        if build not in list(cities.keys()):
+            print("Umm... Wrong city.")
+            pass
+        else:
+            buildtrack(starting[0], build, player, 0)
+            break
     week += 1
-    nextweek()  # not complete
+    nextweek()
+
+# print("Week " + week + " : ")
+# print('Options:')
+# print('1. Build More Railways')
+# print('2. research (NOT AVAILABLE YET)')
+# print('3. pay loan')
