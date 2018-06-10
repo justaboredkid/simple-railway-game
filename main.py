@@ -1,7 +1,7 @@
 import random
 from math import sin, cos, sqrt, atan2, radians
 from fractions import Fraction
-
+from collections import Counter
 
 cities = {'Toronto': ['on', 43.654805, -79.380595],
           'Montreal': ['qc', 45.501080, -73.568140],
@@ -24,7 +24,7 @@ cities = {'Toronto': ['on', 43.654805, -79.380595],
           'Atlanta': ['ga', 33.755, -84.39]
           }
 
-regions = {'bc': ['British Columbia', 'mountains', 'forest', 'snow', 'r1ainy', 'ca'],
+regions = {'bc': ['British Columbia', 'mountains', 'forest', 'snow', 'rainy', 'ca'],
            'qc': ['Quebec', 'French', 'snow', 'arctic', 'rainy', 'ca'], 'on': ['Ontario', 'snow', 'cold', 'ca'],
            'ab': ['Alberta', 'snow', 'cold', 'mountains', 'ca'], 'ma': ['Manitoba', 'ca'],
            'wa': ['Washington', 'rainy', 'us'], 'wy': ['Wyoming', 'dry', 'windy', 'extreme', 'mountains', 'us'],
@@ -43,59 +43,61 @@ regions = {'bc': ['British Columbia', 'mountains', 'forest', 'snow', 'r1ainy', '
 
 def buildtrack(station, destination, player, devtag):
     if due[player] <= 0:
+        while True:
 
-        a = list(cities[station])
-        b = list(cities[destination])
-        # I plagiarized this bit
-        r = 6373.0
+            a = list(cities[station])
+            b = list(cities[destination])
+            # I plagiarized this bit
+            r = 6373.0
 
-        lat1 = radians(a[1])
-        lon1 = radians(a[2])
-        lat2 = radians(b[1])
-        lon2 = radians(b[2])
+            lat1 = radians(a[1])
+            lon1 = radians(a[2])
+            lat2 = radians(b[1])
+            lon2 = radians(b[2])
 
-        dlon = lon2 - lon1
-        dlat = lat2 - lat1
+            dlon = lon2 - lon1
+            dlat = lat2 - lat1
 
-        a = sin(dlat / 2)**2 + cos(lat1) * cos(lat2) * sin(dlon / 2)**2
-        c = 2 * atan2(sqrt(a), sqrt(1 - a))
-        length = r * c
-        # Track is not straight
-        bias = random.randint(250, 300)
-        length = int(length) + bias
-        if length >= 1000:
-            if devtag == 1:
-                return
-            else:
-                print("You can't build that! It's too long! What do you expect?")
-        else:
-            if devtag == 1:
-                return length
-            while True:
-                try:
-                    while True:
-                        people = int(input("How many workers do you want to hire? (Type any letters to cancel)> "))
-                        if Fraction(-1, 50) * (people + (Fraction(-3, 10) * int(rnd[player]))) + length <= 0:
-                            print("Too many people")
-                            pass
-                        else:
-                            while True:
-                                iratio = []
-                                groups = ["white", "immigrant/aboriginal", "black"]
-                                for item in groups:
-                                    iratio.append(int(input("ratio of workers (" + item + ") %>")) / 100)
-
-                                if sum(iratio) != 1:
-                                    print("over/under 100 percent. Try again")
-                                    pass
-                                else:
-                                    ratio[player] = iratio
-                                    break
-                            break
-
-                except ValueError:
+            a = sin(dlat / 2)**2 + cos(lat1) * cos(lat2) * sin(dlon / 2)**2
+            c = 2 * atan2(sqrt(a), sqrt(1 - a))
+            length = r * c
+            # Track is not straight
+            bias = random.randint(250, 300)
+            length = int(length) + bias
+            if length >= 1000:
+                if devtag == 1:
                     return
-                try:
+                else:
+                    print("You can't build that! It's too long! What do you expect?")
+                    return
+            else:
+                if devtag == 1:
+                    return length
+                while True:
+                    try:
+                        while True:
+                            people = int(input("How many workers do you want to hire? (Type any letters to cancel)> "))
+                            if Fraction(-1, 50) * (people + (Fraction(-3, 10) * int(rnd[player]))) + length <= 0:
+                                print("Too many people")
+                                pass
+                            else:
+                                while True:
+                                    iratio = []
+                                    groups = ["white", "immigrant/aboriginal", "black"]
+                                    for item in groups:
+                                        iratio.append(int(input("ratio of workers (" + item + ") %>")) / 100)
+
+                                    if sum(iratio) != 1:
+                                        print("over/under 100 percent. Try again")
+                                        pass
+                                    else:
+                                        ratio[player] = iratio
+                                        break
+                                break
+
+                    except ValueError:
+                        return
+
                     cost = []
                     workers[player] = people
                     people = people + (Fraction(-3, 10) * int(rnd[player]))
@@ -126,38 +128,66 @@ def buildtrack(station, destination, player, devtag):
                         print(cost - money[player])
                         print("Too expensive")
                         break
-
                     while True:
-                        if wages.get(player)[-1] == 2:
-                            confirm = input("Total cost is $" + str(cost) + ". That is around $" + format(str(cost / length), '.2f') + " per KM. Are you sure? (Y/N)>").lower()
+                        if wages.get(player)[-1] == '2':
+                            confirm = input("Total cost is $" + str(cost) + ". That is around $" + format(int(cost / length), '.2f') + " per KM. Are you sure? (Y/N)>").lower()
 
                             if confirm not in ['y', 'n']:
                                 print("Really?")
                                 pass
                             else:
-                                if confirm == 'y': 
+                                if confirm == 'y':
                                     due[player] = Fraction(-1, 50) * people + length
                                     print("It will take " + str(due[player]) + " weeks to complete.")
                                     moneychange(-cost, player)
                                     project[player] = destination
                                     return
                                 else:
-                                    pass
+                                    print("Building cancelled")
+                                    return
                         else:
                             time = Fraction(-1, 50) * people + length
-                            confirm = input("Total cost is $" + str(cost) + ". That is around $" + format(str(cost / time), '.2f') + " per week. Are you sure? (Y/N)>").lower()
+                            confirm = input("Total cost is $" + str(cost) + ". That is around $" + str(format(cost / time, '.2f')) + " per week. Are you sure? (Y/N)>").lower()
                             if confirm == 'y':
                                 due[player] = time
                                 print("It will take " + str(due[player]) + " weeks to complete.")
                                 moneychange(-(cost / time), player)
                                 project[player] = destination
                                 return
-                except ValueError:
-                    print("\nExiting..\n")
-                    return
+
 
     else:
         print("no building 4 u")
+        return
+
+
+def build(player):
+    while True:
+        print("Player " + player.upper() + ": ")
+        distance = []
+        starting = list(stations.get(player))
+        print(starting)
+        for key in cities:
+            if key == starting[0]:
+                pass
+            else:
+                l = buildtrack(starting[0], key, player, 1)
+                if l is None:
+                    pass
+                else:
+                    distance.append([key, regions[cities.get(key)[0]][0], l])
+        print(distance, "\n")
+        while True:
+            build = input("Where to go first? >").title()
+            if build not in list(cities.keys()):
+                print("Umm... Wrong city.")
+                pass
+            elif build == 'exit':
+                print("Exiting...")
+                return
+            else:
+                buildtrack(starting[0], build, player, 0)
+                return
 
 
 def point(player):
@@ -246,9 +276,7 @@ def nextweek():
         else:
             if wages.get(key)[-1] == 1:
                 print("Player " + key.upper() + ": Wages")
-                cost = ((wages.get(key)[0] * (workers[key] * ratio.get(key)[0])) + (
-                            wages.get(key)[1] * (workers[key] * ratio.get(key)[1])) + (
-                                    wages.get(key)[2] * (workers[key] * ratio.get(key)[2])))
+                cost = ((wages.get(key)[0] * (workers[key] * ratio.get(key)[0])) + (wages.get(key)[1] * (workers[key] * ratio.get(key)[1])) + (wages.get(key)[2] * (workers[key] * ratio.get(key)[2]))) * 4
                 moneychange(-cost, key)
                 due[key] -= 1
             else:
@@ -258,11 +286,9 @@ def nextweek():
         if monthpay.get(key)[-1] == 0:
             print("Player " + key.upper() + " does not need to repay anything")
         else:
-            if week % list(monthpay.get(key))[1] == 0:
-                monthpay.get(key)[-1] = (monthpay.get(key)[-1] * (monthpay.get(key)[0] / 100) + monthpay.get(key)[-1])
-                print("Player " + key.upper() + ", you now owe $" + str(list(monthpay.get(key))[-1]))
-            else:
-                pass
+            numweek = week / monthpay.get(key)[1]
+            monthpay.get(key)[-1] = (monthpay.get(key)[-1] * (monthpay.get(key)[0] / 100) + monthpay.get(key)[-1]) * int(numweek)
+            print("Player " + key.upper() + ", you now owe $" + str(list(monthpay.get(key))[-1]))
 
 
     for key in due:
@@ -276,7 +302,7 @@ def nextweek():
             print("GAME OVER. Player " + key.upper() + " Filed for bankruptcy")
             for key in wages:
                 a = point(key)
-                print(a)
+                print("Player " + key.upper() + str(a))
             exit()
     for key in stations:
         for item in stations[key]:
@@ -315,14 +341,20 @@ for key in factions:
 for key in stations:
     while True:
         bgin = start()
+        print(bgin)
         chosen = list(stations.values())
+        print(chosen)
         country = project[key]
-        try:
-            if chosen.index(bgin) > 0:
-                pass
-        except ValueError:
+        if Counter(chosen)[bgin] > 0:
+            print(Counter(chosen)[bgin])
+            pass
+        else:
             if country == list(regions[list(cities.get(bgin))[0]])[-1]:
                 stations[key] = [bgin]
+                project[key] = ''
+                print(stations[key])
+                print(stations.values())
+                print(Counter(chosen))
                 break
             elif country == '':
                 stations[key] = [bgin]
@@ -385,36 +417,46 @@ for key in wages:
             pass    
 
 
+for key in stations:
+    build(key)
 
-for key in stations:    # Actual game play starts here
-    print("Player " + key.upper() + ": ")
-    distance = []
-    player = key
-    starting = list(stations.get(key))
-    print(starting)
-    for key in cities:
-        if key == starting[0]:
-            pass
-        else:
-            l = buildtrack(starting[0], key, player, 1)
-            if l is None:
-                pass
-            else:
-                distance.append([key, regions[cities.get(key)[0]][0], l])
-    print(distance, "\n")
-    while True:
-        build = input("Where to go first? >").title()
-        if build not in list(cities.keys()):
-            print("Umm... Wrong city.")
-            pass
-        else:
-            buildtrack(starting[0], build, player, 0)
-            break
-    week += 1
-    nextweek()
+week += 4  # edit next week
+nextweek()
 
-# print("Week " + week + " : ")
-# print('Options:')
-# print('1. Build More Railways')
-# print('2. research (NOT AVAILABLE YET)')
-# print('3. pay loan')
+
+while True:
+    for key in stations:
+        while True:
+            print("Week " + week + " : ")
+            print('Options:')
+            print('1. Build More Railways')
+            print('2. Research')
+            print('3. Pay loan')
+            print('4. Stop game')
+            print('\nN: Next Player')
+            menu = input('> ').lower
+            try:
+                if menu is not [1, 2, 3, 4]:
+                    print('\nInvalid option.')
+                    pass
+                else:
+                    if menu == 1:
+                        build(key)
+                    if menu == 2:
+                        print("This feature is still unavailable")
+                        # research(key)
+                    if menu == 3:
+                        print("This feature is still unavailable")
+                        # loan(key)
+                    if menu == 4:
+                        for key in wages:
+                            a = point(key)
+                            print("Player " + key.upper() + str(a))
+                        exit()
+            except TypeError:
+                if menu is not 'n':
+                    print('\nInvalid option.')
+                    pass
+                else:
+                    break
+        break
