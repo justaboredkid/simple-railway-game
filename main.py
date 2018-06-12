@@ -91,7 +91,6 @@ def buildtrack(station, destination, player, devtag):
                             if Fraction(-1, 50) * (people + (Fraction(
                                     -3, 10) * int(rnd[player]))) + length <= 0:
                                 print("Too many people")
-                                pass
                             else:
                                 while True:
                                     iratio = []
@@ -109,7 +108,6 @@ def buildtrack(station, destination, player, devtag):
                                         print(
                                             "over/under 100 percent. Try again"
                                         )
-                                        pass
                                     else:
                                         ratio[player] = iratio
                                         break
@@ -126,10 +124,8 @@ def buildtrack(station, destination, player, devtag):
                         a = item
                         if item == 0:
                             ethicality[player] = ethicality[player] - 33
-                            pass
                         elif item != pay[0]:
                             ethicality[player] = ethicality[player] - 10
-                            pass
                         else:
                             calc = int(length * (people * a))
                             cost.append(calc)
@@ -157,7 +153,6 @@ def buildtrack(station, destination, player, devtag):
 
                             if confirm not in ['y', 'n']:
                                 print("Really?")
-                                pass
                             else:
                                 if confirm == 'y':
                                     due[player] = Fraction(
@@ -259,7 +254,6 @@ def setup(faction, player):
             project[player] = project[player].lower()
             if project[player] not in ['ca', 'us']:
                 print("\nYeah... Nope.\n")
-                pass
             else:
                 break
 
@@ -282,7 +276,6 @@ def setup(faction, player):
             investor = investor.lower()
             if investor not in ['a', 'b', 'c']:
                 print("that investor does not exist.")
-                pass
             else:
                 moneychange(inipay[investor], player)
                 monthpay[player] = [
@@ -363,7 +356,6 @@ for key in factions:
                        )
         if choice not in ['g', 'p', 'c']:
             print("try again")
-            pass
         else:
             factions[key] = choice
             break
@@ -402,7 +394,6 @@ for key in stations:
         country = project[key]
         if Counter(chosen)[bgin] > 0:
             print(Counter(chosen)[bgin])
-            pass
         else:
             if country == list(regions[list(cities.get(bgin))[0]])[-1]:
                 stations[key] = [bgin]
@@ -430,7 +421,6 @@ for key in wages:
         groups = input("> ").lower()
         if groups not in ['1', '2', '3', '4', 'n']:
             print("\nreally?\n")
-            pass
 
         else:
             if groups == 'n':
@@ -491,7 +481,6 @@ while True:
             try:
                 if menu is not [1, 2, 3, 4]:
                     print('\nInvalid option.')
-                    pass
                 else:
                     if menu == 1:
                         build(key)
@@ -509,7 +498,6 @@ while True:
             except TypeError:
                 if menu is not 'n':
                     print('\nInvalid option.')
-                    pass
                 else:
                     break
         break
