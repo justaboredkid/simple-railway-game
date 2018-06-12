@@ -3,42 +3,48 @@ from math import sin, cos, sqrt, atan2, radians
 from fractions import Fraction
 from collections import Counter
 
-cities = {'Toronto': ['on', 43.654805, -79.380595],
-          'Montreal': ['qc', 45.501080, -73.568140],
-          'Ottawa': ['on', 45.415387, -75.565701],
-          'Edmonton': ['ab', 53.594894, -113.463576],
-          'Winnipeg': ['ma', 49.897735, -97.134426],
-          'Brampton': ['on', 43.735508, -79.767844],
-          'Seattle': ['wa', 47.607286, -122.334005],
-          'Moscow': ['id', 46.731839, -117.010040],
-          'Philadelphia': ['pe', 39.961121, -75.160669],
-          'Fargo': ['nd', 46.876391, -96.783252],
-          'Brooklyn': ['ny', 40.679016, -73.936774],
-          'Concord': ['nh', 43.206977, -71.527225],
-          'Springfield': ['il', 39.781697, -89.651612],
-          'Kamloops': ['bc', 50.687770, -120.347863],
-          'Dallas': ['tx', 32.775833, -96.796667],
-          'Nashville': ['tn', 36.162725, -86.781820],
-          'Salt Lake City': ['ut', 40.75, -111.883333],
-          'Houston': ['tx', 29.762778, -95.383056],
-          'Atlanta': ['ga', 33.755, -84.39]
-          }
+cities = {
+    'Toronto': ['on', 43.654805, -79.380595],
+    'Montreal': ['qc', 45.501080, -73.568140],
+    'Ottawa': ['on', 45.415387, -75.565701],
+    'Edmonton': ['ab', 53.594894, -113.463576],
+    'Winnipeg': ['ma', 49.897735, -97.134426],
+    'Brampton': ['on', 43.735508, -79.767844],
+    'Seattle': ['wa', 47.607286, -122.334005],
+    'Moscow': ['id', 46.731839, -117.010040],
+    'Philadelphia': ['pe', 39.961121, -75.160669],
+    'Fargo': ['nd', 46.876391, -96.783252],
+    'Brooklyn': ['ny', 40.679016, -73.936774],
+    'Concord': ['nh', 43.206977, -71.527225],
+    'Springfield': ['il', 39.781697, -89.651612],
+    'Kamloops': ['bc', 50.687770, -120.347863],
+    'Dallas': ['tx', 32.775833, -96.796667],
+    'Nashville': ['tn', 36.162725, -86.781820],
+    'Salt Lake City': ['ut', 40.75, -111.883333],
+    'Houston': ['tx', 29.762778, -95.383056],
+    'Atlanta': ['ga', 33.755, -84.39]
+}
 
-regions = {'bc': ['British Columbia', 'mountains', 'forest', 'snow', 'rainy', 'ca'],
-           'qc': ['Quebec', 'French', 'snow', 'arctic', 'rainy', 'ca'], 'on': ['Ontario', 'snow', 'cold', 'ca'],
-           'ab': ['Alberta', 'snow', 'cold', 'mountains', 'ca'], 'ma': ['Manitoba', 'ca'],
-           'wa': ['Washington', 'rainy', 'us'], 'wy': ['Wyoming', 'dry', 'windy', 'extreme', 'mountains', 'us'],
-           'id': ['Idaho', 'humid', 'rainy', 'freshwater', 'us'],
-           'pe': ['Pennsylvania', 'humid', 'cold', 'snow', 'dry', 'freshwater', 'us'],
-           'ny': ['New York', 'cold', 'dry', 'snow', 'forest', 'freshwater', 'us'],
-           'nd': ['North Dakota', 'hot', 'humid', 'mountains', 'us'],
-           'nh': ['New Hampshire', 'windy', 'humid', 'snow', 'extreme', 'mountains', 'us'],
-           'il': ['Illinois', 'us'],
-           'tx': ['Texas', 'us'],
-           'tn': ['Tennessee', 'us'],
-           'ut': ['Utah', 'us'],
-           'ga': ['Georgia', 'us']
-           }
+regions = {
+    'bc': ['British Columbia', 'mountains', 'forest', 'snow', 'rainy', 'ca'],
+    'qc': ['Quebec', 'French', 'snow', 'arctic', 'rainy', 'ca'],
+    'on': ['Ontario', 'snow', 'cold', 'ca'],
+    'ab': ['Alberta', 'snow', 'cold', 'mountains', 'ca'],
+    'ma': ['Manitoba', 'ca'],
+    'wa': ['Washington', 'rainy', 'us'],
+    'wy': ['Wyoming', 'dry', 'windy', 'extreme', 'mountains', 'us'],
+    'id': ['Idaho', 'humid', 'rainy', 'freshwater', 'us'],
+    'pe': ['Pennsylvania', 'humid', 'cold', 'snow', 'dry', 'freshwater', 'us'],
+    'ny': ['New York', 'cold', 'dry', 'snow', 'forest', 'freshwater', 'us'],
+    'nd': ['North Dakota', 'hot', 'humid', 'mountains', 'us'],
+    'nh':
+    ['New Hampshire', 'windy', 'humid', 'snow', 'extreme', 'mountains', 'us'],
+    'il': ['Illinois', 'us'],
+    'tx': ['Texas', 'us'],
+    'tn': ['Tennessee', 'us'],
+    'ut': ['Utah', 'us'],
+    'ga': ['Georgia', 'us']
+}
 
 
 def buildtrack(station, destination, player, devtag):
@@ -68,7 +74,9 @@ def buildtrack(station, destination, player, devtag):
                 if devtag == 1:
                     return
                 else:
-                    print("You can't build that! It's too long! What do you expect?")
+                    print(
+                        "You can't build that! It's too long! What do you expect?"
+                    )
                     return
             else:
                 if devtag == 1:
@@ -76,19 +84,31 @@ def buildtrack(station, destination, player, devtag):
                 while True:
                     try:
                         while True:
-                            people = int(input("How many workers do you want to hire? (Type any letters to cancel)> "))
-                            if Fraction(-1, 50) * (people + (Fraction(-3, 10) * int(rnd[player]))) + length <= 0:
+                            people = int(
+                                input(
+                                    "How many workers do you want to hire? (Type any letters to cancel)> "
+                                ))
+                            if Fraction(-1, 50) * (people + (Fraction(
+                                    -3, 10) * int(rnd[player]))) + length <= 0:
                                 print("Too many people")
                                 pass
                             else:
                                 while True:
                                     iratio = []
-                                    groups = ["white", "immigrant/aboriginal", "black"]
+                                    groups = [
+                                        "white", "immigrant/aboriginal",
+                                        "black"
+                                    ]
                                     for item in groups:
-                                        iratio.append(int(input("ratio of workers (" + item + ") %>")) / 100)
+                                        iratio.append(
+                                            int(
+                                                input("ratio of workers (" +
+                                                      item + ") %>")) / 100)
 
                                     if sum(iratio) != 1:
-                                        print("over/under 100 percent. Try again")
+                                        print(
+                                            "over/under 100 percent. Try again"
+                                        )
                                         pass
                                     else:
                                         ratio[player] = iratio
@@ -130,15 +150,20 @@ def buildtrack(station, destination, player, devtag):
                         break
                     while True:
                         if wages.get(player)[-1] == '2':
-                            confirm = input("Total cost is $" + str(cost) + ". That is around $" + format(int(cost / length), '.2f') + " per KM. Are you sure? (Y/N)>").lower()
+                            confirm = input("Total cost is $" + str(
+                                cost) + ". That is around $" + format(
+                                    int(cost / length), '.2f'
+                                ) + " per KM. Are you sure? (Y/N)>").lower()
 
                             if confirm not in ['y', 'n']:
                                 print("Really?")
                                 pass
                             else:
                                 if confirm == 'y':
-                                    due[player] = Fraction(-1, 50) * people + length
-                                    print("It will take " + str(due[player]) + " weeks to complete.")
+                                    due[player] = Fraction(
+                                        -1, 50) * people + length
+                                    print("It will take " + str(due[player]) +
+                                          " weeks to complete.")
                                     moneychange(-cost, player)
                                     project[player] = destination
                                     return
@@ -147,14 +172,17 @@ def buildtrack(station, destination, player, devtag):
                                     return
                         else:
                             time = Fraction(-1, 50) * people + length
-                            confirm = input("Total cost is $" + str(cost) + ". That is around $" + str(format(cost / time, '.2f')) + " per week. Are you sure? (Y/N)>").lower()
+                            confirm = input("Total cost is $" + str(
+                                cost) + ". That is around $" + str(
+                                    format(cost / time, '.2f')
+                                ) + " per week. Are you sure? (Y/N)>").lower()
                             if confirm == 'y':
                                 due[player] = time
-                                print("It will take " + str(due[player]) + " weeks to complete.")
+                                print("It will take " + str(due[player]) +
+                                      " weeks to complete.")
                                 moneychange(-(cost / time), player)
                                 project[player] = destination
                                 return
-
 
     else:
         print("no building 4 u")
@@ -206,7 +234,8 @@ def message(mt, amount, player):
         print("Player " + player.upper() + " has spent $" + str(abs(amount)))
     if mt == "rndcheat":
         rnd[player] = amount
-        print("Player " + player.upper() + " has time traveled and stole " + str(abs(amount)) + " RND points")
+        print("Player " + player.upper() + " has time traveled and stole " +
+              str(abs(amount)) + " RND points")
 
 
 def moneychange(amount, player):
@@ -221,7 +250,9 @@ def moneychange(amount, player):
 def setup(faction, player):
     if faction == "g":
         moneychange(2500000, player)
-        print("\nPlayer " + player.upper() + ", you have chosen to get funded by the Government.")  # add what this means, word formating
+        print("\nPlayer " + player.upper() +
+              ", you have chosen to get funded by the Government."
+              )  # add what this means, word formating
         print("Which project do you want to participate in?")
         while True:
             project[player] = input("(CA/US)> ")
@@ -244,7 +275,8 @@ def setup(faction, player):
             time[key] = random.randint(2, 6)
         print("Player " + player.upper() + ", choose your investor:")
         for key in interest:
-            print("Investor " + key.upper() + ": " + str(inipay[key]) + " " + str(interest[key]) + "% per " + str(time[key]) + " weeks")
+            print("Investor " + key.upper() + ": " + str(inipay[key]) + " " +
+                  str(interest[key]) + "% per " + str(time[key]) + " weeks")
         while True:
             investor = input("> ")
             investor = investor.lower()
@@ -253,7 +285,9 @@ def setup(faction, player):
                 pass
             else:
                 moneychange(inipay[investor], player)
-                monthpay[player] = [interest[investor], time[investor], inipay[investor]]
+                monthpay[player] = [
+                    interest[investor], time[investor], inipay[investor]
+                ]
                 break
 
     if faction == "c":
@@ -276,7 +310,12 @@ def nextweek():
         else:
             if wages.get(key)[-1] == 1:
                 print("Player " + key.upper() + ": Wages")
-                cost = ((wages.get(key)[0] * (workers[key] * ratio.get(key)[0])) + (wages.get(key)[1] * (workers[key] * ratio.get(key)[1])) + (wages.get(key)[2] * (workers[key] * ratio.get(key)[2]))) * 4
+                cost = ((wages.get(key)[0] *
+                         (workers[key] * ratio.get(key)[0])) +
+                        (wages.get(key)[1] *
+                         (workers[key] * ratio.get(key)[1])) +
+                        (wages.get(key)[2] *
+                         (workers[key] * ratio.get(key)[2]))) * 4
                 moneychange(-cost, key)
                 due[key] -= 1
             else:
@@ -287,9 +326,12 @@ def nextweek():
             print("Player " + key.upper() + " does not need to repay anything")
         else:
             numweek = week / monthpay.get(key)[1]
-            monthpay.get(key)[-1] = (monthpay.get(key)[-1] * (monthpay.get(key)[0] / 100) + monthpay.get(key)[-1]) * int(numweek)
-            print("Player " + key.upper() + ", you now owe $" + str(list(monthpay.get(key))[-1]))
-
+            monthpay.get(key)[-1] = (
+                monthpay.get(key)[-1] *
+                (monthpay.get(key)[0] / 100) + monthpay.get(key)[-1]
+            ) * int(numweek)
+            print("Player " + key.upper() + ", you now owe $" +
+                  str(list(monthpay.get(key))[-1]))
 
     for key in due:
         if due[key] == 0:
@@ -311,24 +353,37 @@ def nextweek():
 
 
 factions = {'a': '', 'b': '', 'c': '', 'd': ''}
-print("\nDisclaimer: This game is based on 1860s money, not 2018. Inflation applies.")
+print(
+    "\nDisclaimer: This game is based on 1860s money, not 2018. Inflation applies."
+)
 for key in factions:
-    while True: 
-        choice = input("\nPlayer " + key.upper() + ": Select how you are going to start your railway: (Government/Private) >")
+    while True:
+        choice = input("\nPlayer " + key.upper(
+        ) + ": Select how you are going to start your railway: (Government/Private) >"
+                       )
         if choice not in ['g', 'p', 'c']:
             print("try again")
             pass
         else:
             factions[key] = choice
-            break    
-
+            break
 
 week = 0
 money = {"a": 0, "b": 0, "c": 0, "d": 0}
 workers = {"a": 0, "b": 0, "c": 0, "d": 0}
 due = {"a": 0, "b": 0, "c": 0, "d": 0}
-monthpay = {"a": [0, 0, 0], "b": [0, 0, 0], "c": [0, 0, 0], "d": [0, 0, 0]}  # interest, weeks, owe
-wages = {"a": [0, 0, 0, 0], "b": [0, 0, 0, 0], "c": [0, 0, 0, 0], "d": [0, 0, 0, 0]}  # white, immigrant/aboriginal, black, km/hr
+monthpay = {
+    "a": [0, 0, 0],
+    "b": [0, 0, 0],
+    "c": [0, 0, 0],
+    "d": [0, 0, 0]
+}  # interest, weeks, owe
+wages = {
+    "a": [0, 0, 0, 0],
+    "b": [0, 0, 0, 0],
+    "c": [0, 0, 0, 0],
+    "d": [0, 0, 0, 0]
+}  # white, immigrant/aboriginal, black, km/hr
 ratio = {"a": [0, 0, 0], "b": [0, 0, 0], "c": [0, 0, 0], "d": [0, 0, 0]}
 rnd = {"a": 0, "b": 0, "c": 0, "d": 0}
 project = {"a": "", "b": "", "c": "", "d": ""}
@@ -376,7 +431,7 @@ for key in wages:
         if groups not in ['1', '2', '3', '4', 'n']:
             print("\nreally?\n")
             pass
-        
+
         else:
             if groups == 'n':
                 pay[-1] = 2
@@ -414,15 +469,13 @@ for key in wages:
                 break
         else:
             pay[-1] = per
-            pass    
-
+            pass
 
 for key in stations:
     build(key)
 
 week += 4  # edit next week
 nextweek()
-
 
 while True:
     for key in stations:
