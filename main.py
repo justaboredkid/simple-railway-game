@@ -184,33 +184,62 @@ def buildtrack(station, destination, player, devtag):
         return
 
 
-def build(player):
+def build(player, choicetag):
     while True:
-        print("Player " + player.upper() + ": ")
+        print("\nPlayer " + player.upper() + ": ")
         distance = []
-        starting = list(stations.get(player))
-        print(starting)
+        if choicetag == 1:
+            starting = []
+            print("\n**Random city generation is buggy and not included in this demo\n")
+        else:
+            starting = stations.get(player)
+            print(starting)
         for key in cities:
-            if key == starting[0]:
-                pass
+            if choicetag == 1:
+                if project[player] is '':
+                    print(key)
+                    distance = []
+                else:
+                    if project[player] == list(regions[list(cities.get(key))[0]])[-1]:
+                        print(key)
+                    else:
+                        pass
             else:
-                l = buildtrack(starting[0], key, player, 1)
-                if l is None:
+                if key == starting:
                     pass
                 else:
-                    distance.append([key, regions[cities.get(key)[0]][0], l])
+                    l = buildtrack(starting, key, player, 1)
+                    if l is None:
+                        pass
+                    else:
+                        distance.append([key, regions[cities.get(key)[0]][0], l])
         print(distance, "\n")
         while True:
-            build = input("Where to go first? >").title()
-            if build not in list(cities.keys()):
-                print("Umm... Wrong city.")
-                pass
-            elif build == 'exit':
-                print("Exiting...")
-                return
+            if choicetag == 1:
+                pick = input("Starting station: >").title()
+                if pick in list(stations.values()):
+                    print("Really? Nuuupe")
+                elif pick not in list(cities.keys()):
+                    print("Wow.")
+                else:
+                    stations[player] = pick
+                    project[player] = ''
+                    return
+
             else:
-                buildtrack(starting[0], build, player, 0)
-                return
+                build = input("Where to go? >").title()
+                if build not in list(cities.keys()):
+                    print("Umm... Wrong city.")
+                elif build == 'exit':
+                    print("Exiting...")
+                    return
+                elif build in list(project.values()):
+                    print("Someone else is taking that")
+                elif build in list(stations.values()):
+                    print("Someone already got that station")
+                else:
+                    buildtrack(starting, build, player, 0)
+                    return
 
 
 def point(player):
@@ -345,6 +374,29 @@ def nextweek():
             print("from " + item + " station")
 
 
+def randomcity(player): #buggy
+    while True:
+        bgin = start()
+        print(bgin)
+        chosen = list(stations.values())
+        print(chosen)
+        country = project[player]
+        if Counter(chosen)[bgin] > 0:
+            print(Counter(chosen)[bgin])
+        else:
+            if country == list(regions[list(cities.get(bgin))[0]])[-1]:
+                project[player] = ''
+                stations[player] = [bgin]
+                print(stations[player])
+                print(stations.values())
+                print(Counter(chosen))
+                break
+            elif country == '':
+                stations[player] = [bgin]
+                break
+            else:
+                pass
+
 factions = {'a': '', 'b': '', 'c': '', 'd': ''}
 print(
     "\nDisclaimer: This game is based on 1860s money, not 2018. Inflation applies."
@@ -385,28 +437,8 @@ ethicality = {"a": 100, "b": 100, "c": 100, "d": 100}
 for key in factions:
     setup(factions[key], key)
 
-for key in stations:
-    while True:
-        bgin = start()
-        print(bgin)
-        chosen = list(stations.values())
-        print(chosen)
-        country = project[key]
-        if Counter(chosen)[bgin] > 0:
-            print(Counter(chosen)[bgin])
-        else:
-            if country == list(regions[list(cities.get(bgin))[0]])[-1]:
-                stations[key] = [bgin]
-                project[key] = ''
-                print(stations[key])
-                print(stations.values())
-                print(Counter(chosen))
-                break
-            elif country == '':
-                stations[key] = [bgin]
-                break
-            else:
-                pass
+for key in project:
+    build(key, 1)
 
 for key in wages:
     pay = [0, 0, 0, 0]
@@ -461,8 +493,8 @@ for key in wages:
             pay[-1] = per
             pass
 
-for key in stations:
-    build(key)
+for key in factions:
+    build(key, 0)
 
 week += 4  # edit next week
 nextweek()
@@ -483,7 +515,7 @@ while True:
                     print('\nInvalid option.')
                 else:
                     if menu == 1:
-                        build(key)
+                        build(key, 0)
                     if menu == 2:
                         print("This feature is still unavailable")
                         # research(key)
