@@ -190,7 +190,9 @@ def build(player, choicetag):
         distance = []
         if choicetag == 1:
             starting = []
-            print("\n**Random city generation is buggy and not included in this demo\n")
+            print(
+                "\n**Random city generation is buggy and not included in this demo\n"
+            )
         else:
             starting = stations.get(player)
             print(starting)
@@ -200,7 +202,8 @@ def build(player, choicetag):
                     print(key)
                     distance = []
                 else:
-                    if project[player] == list(regions[list(cities.get(key))[0]])[-1]:
+                    if project[player] == list(regions[list(
+                            cities.get(key))[0]])[-1]:
                         print(key)
                     else:
                         pass
@@ -212,7 +215,8 @@ def build(player, choicetag):
                     if l is None:
                         pass
                     else:
-                        distance.append([key, regions[cities.get(key)[0]][0], l])
+                        distance.append(
+                            [key, regions[cities.get(key)[0]][0], l])
         print(distance, "\n")
         while True:
             if choicetag == 1:
@@ -374,7 +378,7 @@ def nextweek():
             print("from " + item + " station")
 
 
-def randomcity(player): #buggy
+def randomcity(player):  #buggy
     while True:
         bgin = start()
         print(bgin)
@@ -396,6 +400,7 @@ def randomcity(player): #buggy
                 break
             else:
                 pass
+
 
 factions = {'a': '', 'b': '', 'c': '', 'd': ''}
 print(
