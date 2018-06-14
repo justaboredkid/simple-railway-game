@@ -10,7 +10,6 @@ cities = {
     'Ottawa': ['on', 45.415387, -75.565701],
     'Edmonton': ['ab', 53.594894, -113.463576],
     'Winnipeg': ['ma', 49.897735, -97.134426],
-    'Brampton': ['on', 43.735508, -79.767844],
     'Seattle': ['wa', 47.607286, -122.334005],
     'Moscow': ['id', 46.731839, -117.010040],
     'Philadelphia': ['pe', 39.961121, -75.160669],
@@ -23,7 +22,20 @@ cities = {
     'Nashville': ['tn', 36.162725, -86.781820],
     'Salt Lake City': ['ut', 40.75, -111.883333],
     'Houston': ['tx', 29.762778, -95.383056],
-    'Atlanta': ['ga', 33.755, -84.39]
+    'Atlanta': ['ga', 33.755, -84.39],
+    'Calgary': ['ab', 51.04861, -114.07084],
+    'Hemingford': ['nb', 42.32162, -103.07297],
+    'Alexandria': ['mi', 45.88481, -95.37766],
+    'Rugby': ['nd', 48.36888, -99.99624],
+    'Chicago': ['il', 41.87811, -87.62979],
+    'Sioux Falls': ['sd', 43.54459, -96.7311],
+    'Casper': ['wy', 42.85007, -106.32517],
+    'Tillamook': ['or', 45.45621, -123.84401],
+    'Cincinnati': ['oh', 39.10311, -84.51201],
+    'Pittsburgh': ['pe', 40.43956, -79.98986],
+    'Alameda': ['cl', 37.7652, -122.24163],
+    'Anahiem': ['cl', 33.83659, -117.9143],
+    'Arcata': ['cl', 40.86651, -124.08283]
 }
 
 regions = {
@@ -44,7 +56,13 @@ regions = {
     'tx': ['Texas', 'us'],
     'tn': ['Tennessee', 'us'],
     'ut': ['Utah', 'us'],
-    'ga': ['Georgia', 'us']
+    'ga': ['Georgia', 'us'],
+    'nb': ['Nebraska', 'us'],
+    'mi': ['Minnesota', 'us'],
+    'sd': ['South Dakota', 'us'],
+    'or': ['Oregon', 'us'],
+    'oh': ['Ohio', 'us'],
+    'cl': ['California', 'us']
 }
 
 
@@ -353,7 +371,8 @@ def nextweek():
         if due[key] == 0:
             break
         else:
-            break  # WILD CARDS!
+            #wildcard(attrib, diff, type)
+            break
 
     for key in money:
         if money[key] <= 0:
@@ -368,7 +387,7 @@ def nextweek():
             print("from " + item + " station")
 
 
-def randomcity(player):  #buggy
+def randomcity(player):
     while True:
         rcity = secrets.choice(list(cities.keys()))
         if rcity in list(stations.values()):
@@ -384,6 +403,30 @@ def randomcity(player):  #buggy
                 stations[player] = rcity
                 print("Your starting city is " + rcity)
                 return
+
+
+def loan(player):
+    print("You need to pay " + str(list(monthpay.get(player))[-1]) + " dollars")
+    if monthpay.get(player)[-1] >= money[player]:
+        print("You don't have enough money for paying back.")
+        return
+    else:
+        while True:
+            repay = input("Confirm? (y/n) > ").lower()
+            if repay not in ['y', 'n']:
+                print("The investor does not like jokes.")
+            else:
+                moneychange(list(monthpay.get(player)[-1]), player)
+                monthpay[player] = [0, 0, 0]
+                investquery = input(
+                    "Do you want more funding? (y/n) > ").lower()
+                if investquery not in ['y', 'n']:
+                    print("I have no time for you sillyness, choose a option.")
+                else:
+                    if investquery == 'y':
+                        setup('p', player)
+                    else:
+                        return
 
 
 factions = {'a': '', 'b': '', 'c': '', 'd': ''}
@@ -431,12 +474,12 @@ for key in project:
     while True:
         print("Player " + key.upper() + ": ")
         print("1. Select starting point")
-        print("2. Random city (BUGGY!)")
-        random = int(input("> "))
-        if random not in [1, 2]:
+        print("2. Random city")
+        select = int(input("> "))
+        if select not in [1, 2]:
             print("Ummm... Nope.")
         else:
-            if random == 1:
+            if select == 1:
                 build(key, 1)
                 break
             else:
@@ -499,6 +542,7 @@ week += 4  # edit next week
 nextweek()
 
 while True:
+    week += 4
     for key in stations:
         while True:
             print("Week " + week + " : ")
@@ -519,8 +563,11 @@ while True:
                         print("This feature is still unavailable")
                         # research(key)
                     if menu == 3:
-                        print("This feature is still unavailable")
-                        # loan(key)
+                        if factions[key] is not 'p':
+                            print(
+                                "Sorry, that option is not available for you.")
+                        else:
+                            loan(key)
                     if menu == 4:
                         for key in wages:
                             a = point(key)
