@@ -1,8 +1,8 @@
 from __future__ import print_function
-import random
 from math import sin, cos, sqrt, atan2, radians
 from fractions import Fraction
-from collections import Counter
+import random
+import secrets
 
 cities = {
     'Toronto': ['on', 43.654805, -79.380595],
@@ -191,9 +191,6 @@ def build(player, choicetag):
         distance = []
         if choicetag == 1:
             starting = []
-            print(
-                "\n**Random city generation is buggy and not included in this demo\n"
-            )
         else:
             starting = stations.get(player)
             print(starting)
@@ -320,13 +317,6 @@ def setup(faction, player):
 
     if faction == "c":
         print("this feature is not complete. you are not supposed to be here")
-        pass
-
-
-def start():
-    locations = list(cities.keys())
-    starting = random.randint(0, len(locations) - 1)
-    return locations[starting]
 
 
 def nextweek():
@@ -379,7 +369,21 @@ def nextweek():
 
 
 def randomcity(player):  #buggy
-    pass
+    while True:
+        rcity = secrets.choice(list(cities.keys()))
+        if rcity in list(stations.values()):
+            pass
+        elif list(project[player]) == []:
+            stations[player] = rcity
+            print("Your starting city is " + rcity)
+            return
+        else:
+            if regions[cities[rcity][0]][-1] not in project[player]:
+                pass
+            else:
+                stations[player] = rcity
+                print("Your starting city is " + rcity)
+                return
 
 
 factions = {'a': '', 'b': '', 'c': '', 'd': ''}
@@ -392,7 +396,7 @@ for key in factions:
             "\nPlayer " + key.upper() +
             ": Select how you are going to start your railway: (Government/Private) >"
         )
-        if choice not in ['g', 'p', 'c']:
+        if choice not in ['g', 'p']:
             print("try again")
         else:
             factions[key] = choice
@@ -428,7 +432,7 @@ for key in project:
         print("Player " + key.upper() + ": ")
         print("1. Select starting point")
         print("2. Random city (BUGGY!)")
-        random = int(input(" >"))
+        random = int(input("> "))
         if random not in [1, 2]:
             print("Ummm... Nope.")
         else:
@@ -469,7 +473,6 @@ for key in wages:
                         pay[int(groups) - 1] = int(amount)
                 except ValueError:
                     print("Nope")
-                    pass
 
     while True:
         print("\n\n\n\nPlayer " + key.upper() + ": ")
@@ -480,17 +483,14 @@ for key in wages:
         per = input("> ").lower()
         if per not in ['1', '2', 'n']:
             print("\nSELECT THE NUMBER!!\n")
-            pass
         elif per == 'n':
             if pay[-1] == 0:
                 print("Hey! How are you going to pay them?")
-                pass
             else:
                 print("\n" * 20)
                 break
         else:
             pay[-1] = per
-            pass
 
 for key in factions:
     build(key, 0)
