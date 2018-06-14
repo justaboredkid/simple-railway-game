@@ -35,7 +35,8 @@ cities = {
     'Pittsburgh': ['pe', 40.43956, -79.98986],
     'Alameda': ['cl', 37.7652, -122.24163],
     'Anahiem': ['cl', 33.83659, -117.9143],
-    'Arcata': ['cl', 40.86651, -124.08283]
+    'Arcata': ['cl', 40.86651, -124.08283],
+    'Santa Fe': ['nm', 35.68697, -105.93779]
 }
 
 regions = {
@@ -63,6 +64,7 @@ regions = {
     'or': ['Oregon', 'us'],
     'oh': ['Ohio', 'us'],
     'cl': ['California', 'us']
+    'nm': ['New Mexico', 'us']
 }
 
 
