@@ -1,3 +1,4 @@
+from __future__ import print_function
 import random
 from math import sin, cos, sqrt, atan2, radians
 from fractions import Fraction
@@ -95,8 +96,7 @@ def buildtrack(station, destination, player, devtag):
                                 while True:
                                     iratio = []
                                     groups = [
-                                        "white", "immigrant/aboriginal",
-                                        "black"
+                                        "white", "immigrant/aboriginal", "black"
                                     ]
                                     for item in groups:
                                         iratio.append(
@@ -106,8 +106,7 @@ def buildtrack(station, destination, player, devtag):
 
                                     if sum(iratio) != 1:
                                         print(
-                                            "over/under 100 percent. Try again"
-                                        )
+                                            "over/under 100 percent. Try again")
                                     else:
                                         ratio[player] = iratio
                                         break
@@ -146,17 +145,18 @@ def buildtrack(station, destination, player, devtag):
                         break
                     while True:
                         if wages.get(player)[-1] == '2':
-                            confirm = input("Total cost is $" + str(
-                                cost) + ". That is around $" + format(
-                                    int(cost / length), '.2f'
-                                ) + " per KM. Are you sure? (Y/N)>").lower()
+                            confirm = input(
+                                "Total cost is $" + str(cost) +
+                                ". That is around $" +
+                                format(int(cost / length), '.2f') +
+                                " per KM. Are you sure? (Y/N)>").lower()
 
                             if confirm not in ['y', 'n']:
                                 print("Really?")
                             else:
                                 if confirm == 'y':
-                                    due[player] = Fraction(
-                                        -1, 50) * people + length
+                                    due[player] = Fraction(-1,
+                                                           50) * people + length
                                     print("It will take " + str(due[player]) +
                                           " weeks to complete.")
                                     moneychange(-cost, player)
@@ -167,10 +167,11 @@ def buildtrack(station, destination, player, devtag):
                                     return
                         else:
                             time = Fraction(-1, 50) * people + length
-                            confirm = input("Total cost is $" + str(
-                                cost) + ". That is around $" + str(
-                                    format(cost / time, '.2f')
-                                ) + " per week. Are you sure? (Y/N)>").lower()
+                            confirm = input(
+                                "Total cost is $" + str(cost) +
+                                ". That is around $" +
+                                str(format(cost / time, '.2f')) +
+                                " per week. Are you sure? (Y/N)>").lower()
                             if confirm == 'y':
                                 due[player] = time
                                 print("It will take " + str(due[player]) +
@@ -278,9 +279,10 @@ def moneychange(amount, player):
 def setup(faction, player):
     if faction == "g":
         moneychange(2500000, player)
-        print("\nPlayer " + player.upper() +
-              ", you have chosen to get funded by the Government."
-              )  # add what this means, word formating
+        print(
+            "\nPlayer " + player.upper() +
+            ", you have chosen to get funded by the Government. You get less money, but you don't have to pay back."
+        )  # add what this means, word formating
         print("Which project do you want to participate in?")
         while True:
             project[player] = input("(CA/US)> ")
@@ -317,7 +319,7 @@ def setup(faction, player):
                 break
 
     if faction == "c":
-
+        print("this feature is not complete. you are not supposed to be here")
         pass
 
 
@@ -336,12 +338,11 @@ def nextweek():
         else:
             if wages.get(key)[-1] == 1:
                 print("Player " + key.upper() + ": Wages")
-                cost = ((wages.get(key)[0] *
-                         (workers[key] * ratio.get(key)[0])) +
-                        (wages.get(key)[1] *
-                         (workers[key] * ratio.get(key)[1])) +
-                        (wages.get(key)[2] *
-                         (workers[key] * ratio.get(key)[2]))) * 4
+                cost = (
+                    (wages.get(key)[0] * (workers[key] * ratio.get(key)[0])) +
+                    (wages.get(key)[1] * (workers[key] * ratio.get(key)[1])) +
+                    (wages.get(key)[2] *
+                     (workers[key] * ratio.get(key)[2]))) * 4
                 moneychange(-cost, key)
                 due[key] -= 1
             else:
@@ -352,10 +353,9 @@ def nextweek():
             print("Player " + key.upper() + " does not need to repay anything")
         else:
             numweek = week / monthpay.get(key)[1]
-            monthpay.get(key)[-1] = (
-                monthpay.get(key)[-1] *
-                (monthpay.get(key)[0] / 100) + monthpay.get(key)[-1]
-            ) * int(numweek)
+            monthpay.get(key)[-1] = (monthpay.get(key)[-1] *
+                                     (monthpay.get(key)[0] / 100) +
+                                     monthpay.get(key)[-1]) * int(numweek)
             print("Player " + key.upper() + ", you now owe $" +
                   str(list(monthpay.get(key))[-1]))
 
@@ -379,27 +379,7 @@ def nextweek():
 
 
 def randomcity(player):  #buggy
-    while True:
-        bgin = start()
-        print(bgin)
-        chosen = list(stations.values())
-        print(chosen)
-        country = project[player]
-        if Counter(chosen)[bgin] > 0:
-            print(Counter(chosen)[bgin])
-        else:
-            if country == list(regions[list(cities.get(bgin))[0]])[-1]:
-                project[player] = ''
-                stations[player] = [bgin]
-                print(stations[player])
-                print(stations.values())
-                print(Counter(chosen))
-                break
-            elif country == '':
-                stations[player] = [bgin]
-                break
-            else:
-                pass
+    pass
 
 
 factions = {'a': '', 'b': '', 'c': '', 'd': ''}
@@ -408,9 +388,10 @@ print(
 )
 for key in factions:
     while True:
-        choice = input("\nPlayer " + key.upper(
-        ) + ": Select how you are going to start your railway: (Government/Private) >"
-                       )
+        choice = input(
+            "\nPlayer " + key.upper() +
+            ": Select how you are going to start your railway: (Government/Private) >"
+        )
         if choice not in ['g', 'p', 'c']:
             print("try again")
         else:
@@ -443,7 +424,20 @@ for key in factions:
     setup(factions[key], key)
 
 for key in project:
-    build(key, 1)
+    while True:
+        print("Player " + key.upper() + ": ")
+        print("1. Select starting point")
+        print("2. Random city (BUGGY!)")
+        random = int(input(" >"))
+        if random not in [1, 2]:
+            print("Ummm... Nope.")
+        else:
+            if random == 1:
+                build(key, 1)
+                break
+            else:
+                randomcity(key)
+                break
 
 for key in wages:
     pay = [0, 0, 0, 0]
