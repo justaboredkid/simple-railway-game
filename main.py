@@ -36,7 +36,8 @@ cities = {
     'Alameda': ['cl', 37.7652, -122.24163],
     'Anahiem': ['cl', 33.83659, -117.9143],
     'Arcata': ['cl', 40.86651, -124.08283],
-    'Santa Fe': ['nm', 35.68697, -105.93779]
+    'Santa Fe': ['nm', 35.68697, -105.93779],
+    'Memphis': ['tn', 35.14953, -90.04898]
 }
 
 regions = {
@@ -63,7 +64,7 @@ regions = {
     'sd': ['South Dakota', 'us'],
     'or': ['Oregon', 'us'],
     'oh': ['Ohio', 'us'],
-    'cl': ['California', 'us']
+    'cl': ['California', 'us'],
     'nm': ['New Mexico', 'us']
 }
 
@@ -314,9 +315,9 @@ def setup(faction, player):
         inipay = {"a": 0, "b": 0, "c": 0}
         time = {"a": 0, "b": 0, "c": 0}
         for key in interest:
-            interest[key] = format(random.uniform(1, 4), ".2f")
+            interest[key] = round(random.uniform(1, 4), 2)
         for key in inipay:
-            inipay[key] = float(format(random.uniform(5, 25), ".2f")) * 1000000
+            inipay[key] = round(random.uniform(5, 25), 2) * 1000000
         for key in time:
             time[key] = random.randint(2, 6)
         print("Player " + player.upper() + ", choose your investor:")
