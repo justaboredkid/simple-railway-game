@@ -401,6 +401,7 @@ def randomcity(player):
                 pass
             else:
                 stations[player] = rcity
+                project[player] = []
                 print("Your starting city is " + rcity)
                 return
 
