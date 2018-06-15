@@ -188,11 +188,10 @@ def buildtrack(station, destination, player, devtag):
                                     return
                         else:
                             time = Fraction(-1, 50) * people + length
-                            confirm = input(
-                                "Total cost is $" + str(cost) +
-                                ". That is around $" +
-                                str(round(cost / time, 2) +
-                                " per week. Are you sure? (Y/N)>").lower()
+                            confirm = input("Total cost is $" + str(
+                                cost) + ". That is around $" + str(
+                                    round(cost / time, 2) +
+                                    " per week. Are you sure? (Y/N)>")).lower()
                             if confirm not in ['y', 'n']:
                                 print("Oh. You are not sure.")
                             else:
