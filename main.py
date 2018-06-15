@@ -341,7 +341,7 @@ def setup(faction, player):
                 ]
                 break
 
-    if faction == "c":
+    if faction == "c":  #Chain funding (Chain of train stations (NO RAILRD))
         print("this feature is not complete. you are not supposed to be here")
 
 

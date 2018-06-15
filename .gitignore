@@ -4,3 +4,4 @@ test.py
 start\.sh
 
 main.py.save
+*.pyc
