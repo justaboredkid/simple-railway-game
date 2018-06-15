@@ -191,16 +191,20 @@ def buildtrack(station, destination, player, devtag):
                             confirm = input(
                                 "Total cost is $" + str(cost) +
                                 ". That is around $" +
-                                str(format(cost / time, '.2f')) +
+                                str(round(cost / time, 2) +
                                 " per week. Are you sure? (Y/N)>").lower()
-                            if confirm == 'y':
-                                due[player] = time
-                                print("It will take " + str(due[player]) +
-                                      " weeks to complete.")
-                                moneychange(-(cost / time), player)
-                                project[player] = destination
-                                return
-
+                            if confirm not in ['y', 'n']:
+                                print("Oh. You are not sure.")
+                            else:
+                                if confirm == 'y':
+                                    due[player] = time
+                                    print("It will take " + str(due[player]) +
+                                          " weeks to complete.")
+                                    moneychange(-(cost / time), player)
+                                    project[player] = destination
+                                    return
+                                else:
+                                    break
     else:
         print("no building 4 u")
         return
@@ -283,6 +287,8 @@ def message(mt, amount, player):
         rnd[player] = amount
         print("Player " + player.upper() + " has time traveled and stole " +
               str(abs(amount)) + " RND points")
+    if mt == "moneystat":
+        print("player " + player.upper() + " has $" + str(money[player]))
 
 
 def moneychange(amount, player):
@@ -493,7 +499,7 @@ for key in project:
 for key in wages:
     pay = [0, 0, 0, 0]
     while True:
-        print("Player " + key.upper() + ": ")
+        message("moneystat", 0, key)
         print("\nAdjust wages between ethnic groups")
         print("1. White")
         print("2. Immigrants and Aboriginals")
@@ -546,16 +552,17 @@ week += 4  # edit next week
 nextweek()
 
 while True:
-    week += 4
     for key in stations:
         while True:
             print("Week " + week + " : ")
+            print("Player " + key + ": ")
             print('Options:')
             print('1. Build More Railways')
             print('2. Research')
             print('3. Pay loan')
             print('4. Stop game')
             print('\nN: Next Player')
+            message("moneystat", 0, key)
             menu = input('> ').lower
             try:
                 if menu is not [1, 2, 3, 4]:
@@ -583,3 +590,5 @@ while True:
                 else:
                     break
         break
+    week += 4
+    nextweek()
