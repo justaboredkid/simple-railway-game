@@ -20,7 +20,7 @@ cities = {
     'Kamloops': ['bc', 50.687770, -120.347863],
     'Dallas': ['tx', 32.775833, -96.796667],
     'Nashville': ['tn', 36.162725, -86.781820],
-    'Salt Lake City': ['ut', 40.75, -111.883333],
+    #'Salt Lake City': ['ut', 40.75, -111.883333],
     'Houston': ['tx', 29.762778, -95.383056],
     'Atlanta': ['ga', 33.755, -84.39],
     'Calgary': ['ab', 51.04861, -114.07084],
@@ -36,7 +36,7 @@ cities = {
     'Alameda': ['cl', 37.7652, -122.24163],
     'Anahiem': ['cl', 33.83659, -117.9143],
     'Arcata': ['cl', 40.86651, -124.08283],
-    'Santa Fe': ['nm', 35.68697, -105.93779],
+    #'Santa Fe': ['nm', 35.68697, -105.93779],
     'Memphis': ['tn', 35.14953, -90.04898]
 }
 
@@ -190,8 +190,8 @@ def buildtrack(station, destination, player, devtag):
                             time = Fraction(-1, 50) * people + length
                             confirm = input("Total cost is $" + str(
                                 cost) + ". That is around $" + str(
-                                    round(cost / time, 2) +
-                                    " per week. Are you sure? (Y/N)>")).lower()
+                                    round(cost / time, 2)) +
+                                    " per week. Are you sure? (Y/N)>").lower()
                             if confirm not in ['y', 'n']:
                                 print("Oh. You are not sure.")
                             else:
@@ -345,7 +345,7 @@ def setup(faction, player):
         print("this feature is not complete. you are not supposed to be here")
 
 
-def nextweek():
+def nextweek(): #per letter station count, the output of monthpay is buggy
     for key in wages:
         if due[key] == 0:
             print("Station " + project[key] + " has completed!")
@@ -437,11 +437,44 @@ def loan(player):
                     else:
                         return
 
-
-factions = {'a': '', 'b': '', 'c': '', 'd': ''}
 print(
     "\nDisclaimer: This game is based on 1860s money, not 2018. Inflation applies."
 )
+while True:
+    print("Hello There! Please select the amount of players. (2-26)")
+    amount = int(input("> "))
+
+    try:
+        if amount == 1:
+            print("loooonnnnely... I am mr loooonnnnely... I have nobody..... All on my owwwnnn!!!")
+        elif amount < 0:
+            print("Sorry, no downers allowed here.")
+        elif amount = 0:
+            print("Really, then why do you bother to play.")
+        elif amount > 26:
+            print("Too crowded.")
+        else:
+            players = map(chr, range(97, 96+amount))
+            initvalue = {p:0 for p in players}
+            money = initvalue
+            workers = initvalue
+            due = initvalue
+            rnd = initvalue
+            ethicality = {p:100 for p in players}
+            wages = {p:[0, 0, 0, 0] for p in players}
+            monthpay = {p:[0, 0, 0] for p in players}
+            stations = {p:[""] for p in players}
+            project = {p:"" for p in players}
+            ratio = monthpay #The values are the same
+            break
+    except TypeError:
+        print("Invalid number. You know what a number is, right?")
+
+
+
+
+factions = {'a': '', 'b': '', 'c': '', 'd': ''}
+
 for key in factions:
     while True:
         choice = input(
@@ -455,26 +488,6 @@ for key in factions:
             break
 
 week = 0
-money = {"a": 0, "b": 0, "c": 0, "d": 0}
-workers = {"a": 0, "b": 0, "c": 0, "d": 0}
-due = {"a": 0, "b": 0, "c": 0, "d": 0}
-monthpay = {
-    "a": [0, 0, 0],
-    "b": [0, 0, 0],
-    "c": [0, 0, 0],
-    "d": [0, 0, 0]
-}  # interest, weeks, owe
-wages = {
-    "a": [0, 0, 0, 0],
-    "b": [0, 0, 0, 0],
-    "c": [0, 0, 0, 0],
-    "d": [0, 0, 0, 0]
-}  # white, immigrant/aboriginal, black, km/hr
-ratio = {"a": [0, 0, 0], "b": [0, 0, 0], "c": [0, 0, 0], "d": [0, 0, 0]}
-rnd = {"a": 0, "b": 0, "c": 0, "d": 0}
-project = {"a": "", "b": "", "c": "", "d": ""}
-stations = {"a": [""], "b": [""], "c": [""], "d": [""]}
-ethicality = {"a": 100, "b": 100, "c": 100, "d": 100}
 
 for key in factions:
     setup(factions[key], key)
@@ -547,7 +560,7 @@ for key in wages:
 for key in factions:
     build(key, 0)
 
-week += 4  # edit next week
+week += 4 
 nextweek()
 
 while True:
