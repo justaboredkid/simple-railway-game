@@ -63,4 +63,7 @@ Player A:
 1. Select starting point
 2. Random city
 > 
-```
+```  
+It is pretty self explanatory. You can select a starting point, or you can let the program decide it for you. Remember, if your company is government founded, your stations will be limited to that country!
+  
+### Pay your workers  
