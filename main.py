@@ -106,6 +106,7 @@ def buildtrack(station, destination, player, devtag):
                 while True:
                     try:
                         while True:
+                            due[player] = 0
                             people = int(
                                 input(
                                     "How many workers do you want to hire? (Type any letters to cancel)> "
@@ -461,9 +462,11 @@ while True:
             players = list(map(chr, range(97, 97 + amount)))
             print(players)
             initvalue = {p: 0 for p in players}
+            print(initvalue)
             money = initvalue
             workers = initvalue
             due = initvalue
+            print(due)
             rnd = initvalue
             ethicality = {p: 100 for p in players}
             wages = {p: [0, 0, 0, 0] for p in players}
