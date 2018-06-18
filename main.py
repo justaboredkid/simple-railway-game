@@ -188,10 +188,11 @@ def buildtrack(station, destination, player, devtag):
                                     return
                         else:
                             time = Fraction(-1, 50) * people + length
-                            confirm = input("Total cost is $" + str(
-                                cost) + ". That is around $" + str(
-                                    round(cost / time, 2)) +
-                                    " per week. Are you sure? (Y/N)>").lower()
+                            confirm = input(
+                                "Total cost is $" + str(cost) +
+                                ". That is around $" +
+                                str(round(cost / time, 2)) +
+                                " per week. Are you sure? (Y/N)>").lower()
                             if confirm not in ['y', 'n']:
                                 print("Oh. You are not sure.")
                             else:
@@ -345,7 +346,7 @@ def setup(faction, player):
         print("this feature is not complete. you are not supposed to be here")
 
 
-def nextweek(): #per letter station count, the output of monthpay is buggy
+def nextweek():  #per letter station count, the output of monthpay is buggy
     for key in wages:
         if due[key] == 0:
             print("Station " + project[key] + " has completed!")
@@ -437,43 +438,43 @@ def loan(player):
                     else:
                         return
 
+
 print(
     "\nDisclaimer: This game is based on 1860s money, not 2018. Inflation applies."
 )
 while True:
     print("Hello There! Please select the amount of players. (2-26)")
-    amount = int(input("> "))
 
     try:
+        amount = int(input("> "))
         if amount == 1:
-            print("loooonnnnely... I am mr loooonnnnely... I have nobody..... All on my owwwnnn!!!")
+            print(
+                "loooonnnnely... I am mr loooonnnnely... I have nobody..... All on my owwwnnn!!!"
+            )
         elif amount < 0:
             print("Sorry, no downers allowed here.")
-        elif amount = 0:
+        elif amount == 0:
             print("Really, then why do you bother to play.")
         elif amount > 26:
             print("Too crowded.")
         else:
-            players = map(chr, range(97, 96+amount))
-            initvalue = {p:0 for p in players}
+            players = list(map(chr, range(97, 97 + amount)))
+            print(players)
+            initvalue = {p: 0 for p in players}
             money = initvalue
             workers = initvalue
             due = initvalue
             rnd = initvalue
-            ethicality = {p:100 for p in players}
-            wages = {p:[0, 0, 0, 0] for p in players}
-            monthpay = {p:[0, 0, 0] for p in players}
-            stations = {p:[""] for p in players}
-            project = {p:"" for p in players}
-            ratio = monthpay #The values are the same
+            ethicality = {p: 100 for p in players}
+            wages = {p: [0, 0, 0, 0] for p in players}
+            monthpay = {p: [0, 0, 0] for p in players}
+            stations = {p: [""] for p in players}
+            project = {p: "" for p in players}
+            factions = project
+            ratio = monthpay  #The values are the same
             break
-    except TypeError:
+    except ValueError:
         print("Invalid number. You know what a number is, right?")
-
-
-
-
-factions = {'a': '', 'b': '', 'c': '', 'd': ''}
 
 for key in factions:
     while True:
@@ -560,7 +561,7 @@ for key in wages:
 for key in factions:
     build(key, 0)
 
-week += 4 
+week += 4
 nextweek()
 
 while True:
