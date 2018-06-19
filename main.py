@@ -381,7 +381,7 @@ def nextweek():  #per letter station count, the output of monthpay is buggy
         if due[key] == 0:
             break
         else:
-            #wildcard(attrib, diff, type)
+            # wildcard(attrib, diff, type)
             break
 
     for key in money:
