@@ -402,7 +402,7 @@ def randomcity(player):
         rcity = secrets.choice(list(cities.keys()))
         if rcity in list(stations.values()):
             pass
-        elif list(project[player]) == []:
+        elif list(project[player]) is None:
             stations[player] = rcity
             print("Your starting city is " + rcity)
             return
@@ -460,21 +460,18 @@ while True:
             print("Too crowded.")
         else:
             players = list(map(chr, range(97, 97 + amount)))
-            print(players)
             initvalue = {p: 0 for p in players}
-            print(initvalue)
-            money = initvalue
-            workers = initvalue
-            due = initvalue
-            print(due)
-            rnd = initvalue
+            money = dict(initvalue)
+            workers = dict(initvalue)
+            due = dict(initvalue)
+            rnd = dict(initvalue)
             ethicality = {p: 100 for p in players}
             wages = {p: [0, 0, 0, 0] for p in players}
             monthpay = {p: [0, 0, 0] for p in players}
             stations = {p: [""] for p in players}
-            project = {p: "" for p in players}
-            factions = project
-            ratio = monthpay  #The values are the same
+            project = {p: '' for p in players}
+            factions = dict(project)
+            ratio = dict(monthpay)  #The values are the same
             break
     except ValueError:
         print("Invalid number. You know what a number is, right?")
