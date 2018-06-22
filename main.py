@@ -262,7 +262,8 @@ def build(player, choicetag):
                     return
                 elif any(build in sl for sl in list(project.values())):
                     print("Someone else is taking that")
-                elif any(build in sl for sl in list(stations.values())) in list(stations.values()):
+                elif any(build in sl for sl in list(stations.values())) in list(
+                        stations.values()):
                     print("Someone already got that station")
                 else:
                     track = buildtrack(starting, build, player, 0)
@@ -594,8 +595,7 @@ while True:
                     # research(key)
                 if menu == '3':
                     if factions[key] is not 'p':
-                        print(
-                            "Sorry, that option is not available for you.")
+                        print("Sorry, that option is not available for you.")
                     else:
                         loan(key)
                 if menu == '4':
