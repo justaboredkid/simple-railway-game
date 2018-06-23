@@ -216,9 +216,9 @@ def build(player, choicetag):
         print("\nPlayer " + player.upper() + ": ")
         distance = []
         if choicetag == 1:
-            starting = []
+            starting = ''
         else:
-            starting = stations.get(player)
+            starting = stations.get(player)[0]
             print(starting)
         for key in cities:
             if choicetag == 1:
@@ -350,7 +350,7 @@ def setup(faction, player):
         print("this feature is not complete. you are not supposed to be here")
 
 
-def nextweek():  # per letter station count, the output of monthpay is buggy
+def nextweek():  # the output of monthpay is buggy
     for key in wages:
         if due[key] == 0:
             print("Station " + str(project[key]) + " has completed!")
@@ -396,9 +396,9 @@ def nextweek():  # per letter station count, the output of monthpay is buggy
             exit()
     for key in stations:
         for item in list(stations[key]):
-            print(stations[key][item])
+            print(item)
             moneychange(5000, key)
-            print("from " + stations.get(item) + " station")
+            print("from " + item + " station")
 
 
 def randomcity(player):
@@ -557,7 +557,7 @@ for key in wages:
         if per not in ['1', '2', 'n']:
             print("\nSELECT THE NUMBER!!\n")
         elif per == 'n':
-            if pay[-1] == 0:
+            if pay[-1] not in ['1', '2', 'n']:
                 print("Hey! How are you going to pay them?")
             else:
                 print("\n" * 20)
@@ -575,7 +575,7 @@ while True:
     for key in stations:
         while True:
             print("Week " + str(week) + " : ")
-            print("Player " + key + ": ")
+            print("Player " + key.upper() + ": ")
             print('Options:')
             print('1. Build More Railways')
             print('2. Research')
@@ -601,7 +601,8 @@ while True:
                 if menu == '4':
                     for key in wages:
                         a = point(key)
-                        print("Player " + key.upper() + "- " + str(a))
+                        print("Player " + key.upper() + " has " + str(a) +
+                              points)
                     exit()
                 if menu == 'n':
                     break
