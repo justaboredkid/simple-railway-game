@@ -69,7 +69,9 @@ regions = {
 }
 
 
-def buildtrack(station, destination, player, devtag):
+def buildtrack(
+        station, destination, player, devtag
+):  # Distance and cost calculation. Set devtag to 1 for distance only.
     if due[player] <= 0:
         while True:
 
@@ -209,7 +211,7 @@ def buildtrack(station, destination, player, devtag):
         return
 
 
-def build(player, choicetag):
+def build(player, choicetag):  # Build menu
     while True:
         print("\nPlayer " + player.upper() + ": ")
         distance = []
@@ -268,7 +270,7 @@ def build(player, choicetag):
                     return
 
 
-def point(player):
+def point(player):  # Calculates points
     value = money[player]
     place = int(len(stations.get(player)))
     ethics = ethicality[player] / 100
@@ -287,10 +289,11 @@ def message(mt, amount, player):
         print("Player " + player.upper() + " has time traveled and stole " +
               str(abs(amount)) + " RND points")
     if mt == "moneystat":
-        print("player " + player.upper() + " has $" + str(money[player]))
+        print("player " + player.upper() + " has $" + str(
+            money[player]))  # Game messages
 
 
-def moneychange(amount, player):
+def moneychange(amount, player):  # Deals with money
     amount = int(amount)
     money[player] = int(money[player]) + amount
     if amount <= 0:
@@ -299,7 +302,7 @@ def moneychange(amount, player):
         message("getmoney", amount, player)
 
 
-def setup(faction, player):
+def setup(faction, player):  # Game starting setup
     if faction == "g":
         moneychange(2500000, player)
         print(
@@ -345,7 +348,7 @@ def setup(faction, player):
         print("this feature is not complete. you are not supposed to be here")
 
 
-def nextweek():
+def nextweek():  # More like next month. Need to change that.
     for key in wages:
         if due[key] == 0:
             print("Station " + project[key] + " has completed!")
@@ -395,7 +398,7 @@ def nextweek():
             print("from " + item + " station")
 
 
-def randomcity(player):
+def randomcity(player):  # Select random city
     while True:
         rcity = secrets.choice(list(cities.keys()))
         if rcity in list(stations.values()):
@@ -414,7 +417,7 @@ def randomcity(player):
                 return
 
 
-def loan(player):
+def loan(player):  # Pays off loan
     print("You need to pay " + str(list(monthpay.get(player))[-1]) + " dollars")
     if monthpay.get(player)[-1] >= money[player]:
         print("You don't have enough money for paying back.")
