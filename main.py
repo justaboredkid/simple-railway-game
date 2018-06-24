@@ -142,15 +142,14 @@ def buildtrack(
                     cost = []
                     workers[player] = people
                     people = people + (Fraction(-3, 10) * int(rnd[player]))
-                    pay = wages.get(player)[:-1]
+                    pay = list(wages.get(player)[:-1])
                     for item in pay:
-                        a = item
                         if item == 0:
                             ethicality[player] = ethicality[player] - 33
-                        elif item != pay[0]:
-                            ethicality[player] = ethicality[player] - 10
                         else:
-                            calc = int(length * (people * a))
+                            if pay.count(item) != 3:
+                                ethicality[player] = ethicality[player] - 10
+                            calc = int(length * (people * item))
                             cost.append(calc)
 
                     c = 0
@@ -489,7 +488,7 @@ if __name__ == "__main__":
             choice = input(
                 "\nPlayer " + key.upper() +
                 ": Select how you are going to start your railway: (Government/Private) >"
-            )
+            ).lower()
             if choice not in ['g', 'p']:
                 print("try again")
             else:
