@@ -363,6 +363,8 @@ venv/Lib/site-packages/pip-10.0.1-py3.6.egg/EGG-INFO/dependency_links.txt
 .idea/modules.xml
 .idea/misc.xml
 
+\.cache/*
+
 \.idea/inspectionProfiles/Project_Default\.xml
 
 \.idea/misc\.xml
