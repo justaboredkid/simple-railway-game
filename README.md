@@ -1,4 +1,4 @@
-# simple-railway-game
+# simple-railway-game  ![TRAVIS CI. It looks professional.](https://travis-ci.com/justaboredkid/simple-railway-game.svg?branch=master)
 
 
 **DISCLAIMER: The contributors and I are trying our best to make this game historically accurate. If you see a historical inconsistency, please open an issue.**  
