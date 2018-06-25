@@ -1,98 +1,168 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <cities>
-    <city name='Toronto'>
-        <region>on</region>
-        <lat>43.654805</lat>
-        <long>-79.380595</long>
-    </city>
-    <city name='Montreal'>
-        <region>qc</region>
-        <lat>45.50108</lat>
-        <long>-73.56814</long>
-    </city>
-    <city name='Ottawa'>
-        <region>on</region>
-        <lat>45.415387</lat>
-        <long>-75.565701</long>
-    </city>
-    <city name='Edmonton'>
-        <region>ab</region>
-        <lat>53.594894</lat>
-        <long>-113.463576</long>
-    </city>
-    <city name='Winnipeg'>
-        <region>ma</region>
-        <lat>49.897735</lat>
-        <long>-97.134426</long>
-    </city>
-    <city name='Brampton'>
-        <region>on</region>
-        <lat>43.735508</lat>
-        <long>-79.767844</long>
-    </city>
-    <city name='Seattle'>
-        <region>wa</region>
-        <lat>47.607286</lat>
-        <long>-122.334005</long>
-    </city>
-    <city name='Moscow'>
-        <region>id</region>
-        <lat>46.731839</lat>
-        <long>-117.01004</long>
-    </city>
-    <city name='Philadelphia'>
-        <region>pe</region>
-        <lat>39.961121</lat>
-        <long>-75.160669</long>
-    </city>
-    <city name='Fargo'>
-        <region>nd</region>
-        <lat>46.876391</lat>
-        <long>-96.783252</long>
-    </city>
-    <city name='Brooklyn'>
-        <region>ny</region>
-        <lat>40.679016</lat>
-        <long>-73.936774</long>
-    </city>
-    <city name='Concord'>
-        <region>nh</region>
-        <lat>43.206977</lat>
-        <long>-71.527225</long>
-    </city>
-    <city name='Springfield'>
-        <region>il</region>
-        <lat>39.781697</lat>
-        <long>-89.651612</long>
-    </city>
-    <city name='Kamloops'>
-        <region>bc</region>
-        <lat>50.68777</lat>
-        <long>-120.347863</long>
-    </city>
-    <city name='Dallas'>
-        <region>tx</region>
-        <lat>32.775833</lat>
-        <long>-96.796667</long>
-    </city>
-    <city name='Nashville'>
-        <region>tn</region>
-        <lat>36.162725</lat>
-        <long>-86.78182</long>
-    </city>
-    <city name='Salt_Lake_City'>
-        <region>ut</region>
-        <lat>40.75</lat>
-        <long>-111.883333</long>
-    </city>
-    <city name='Houston'>
-        <region>tx</region>
-        <lat>29.762778</lat>
-        <long>-95.383056</long>
-    </city>
-    <city name='Atlanta'>
-        <region>ga</region>
-        <lat>33.755</lat>
-        <long>-84.39</long>
-    </city>
+  <city name='Toronto'>
+    <region>on</region>
+    <lat>43.654805</lat>
+    <long>-79.380595</long>
+  </city>
+  <city name='Montreal'>
+    <region>qc</region>
+    <lat>45.50108</lat>
+    <long>-73.56814</long>
+  </city>
+  <city name='Ottawa'>
+    <region>on</region>
+    <lat>45.415387</lat>
+    <long>-75.565701</long>
+  </city>
+  <city name='Edmonton'>
+    <region>ab</region>
+    <lat>53.594894</lat>
+    <long>-113.463576</long>
+  </city>
+  <city name='Winnipeg'>
+    <region>ma</region>
+    <lat>49.897735</lat>
+    <long>-97.134426</long>
+  </city>
+  <city name='Brampton'>
+    <region>on</region>
+    <lat>43.735508</lat>
+    <long>-79.767844</long>
+  </city>
+  <city name='Seattle'>
+    <region>wa</region>
+    <lat>47.607286</lat>
+    <long>-122.334005</long>
+  </city>
+  <city name='Moscow'>
+    <region>id</region>
+    <lat>46.731839</lat>
+    <long>-117.01004</long>
+  </city>
+  <city name='Philadelphia'>
+    <region>pe</region>
+    <lat>39.961121</lat>
+    <long>-75.160669</long>
+  </city>
+  <city name='Fargo'>
+    <region>nd</region>
+    <lat>46.876391</lat>
+    <long>-96.783252</long>
+  </city>
+  <city name='Brooklyn'>
+    <region>ny</region>
+    <lat>40.679016</lat>
+    <long>-73.936774</long>
+  </city>
+  <city name='Concord'>
+    <region>nh</region>
+    <lat>43.206977</lat>
+    <long>-71.527225</long>
+  </city>
+  <city name='Springfield'>
+    <region>il</region>
+    <lat>39.781697</lat>
+    <long>-89.651612</long>
+  </city>
+  <city name='Kamloops'>
+    <region>bc</region>
+    <lat>50.68777</lat>
+    <long>-120.347863</long>
+  </city>
+  <city name='Dallas'>
+    <region>tx</region>
+    <lat>32.775833</lat>
+    <long>-96.796667</long>
+  </city>
+  <city name='Nashville'>
+    <region>tn</region>
+    <lat>36.162725</lat>
+    <long>-86.78182</long>
+  </city>
+  <city name='Salt_Lake_City'>
+    <region>ut</region>
+    <lat>40.75</lat>
+    <long>-111.883333</long>
+  </city>
+  <city name='Houston'>
+    <region>tx</region>
+    <lat>29.762778</lat>
+    <long>-95.383056</long>
+  </city>
+  <city name='Atlanta'>
+    <region>ga</region>
+    <lat>33.755</lat>
+    <long>-84.39</long>
+  </city>
+  <city name='Calgary'>
+    <region>ab</region>
+    <lat>51.04861</lat>
+    <long>-114.07084</long>
+  </city>
+  <city name='Hemingford'>
+    <region>nb</region>
+    <lat>42.32162</lat>
+    <long>-103.07297</long>
+  </city>
+  <city name='Alexandria'>
+    <region>mi</region>
+    <lat>45.88481</lat>
+    <long>-95.37766</long>
+  </city>
+  <city name='Rugby'>
+    <region>nd</region>
+    <lat>48.36888</lat>
+    <long>-99.99624</long>
+  </city>
+  <city name='Chicago'>
+    <region>il</region>
+    <lat>41.87811</lat>
+    <long>-87.62979</long>
+  </city>
+  <city name='Sioux Falls'>
+    <region>sd</region>
+    <lat>43.54459</lat>
+    <long>-96.7311</long>
+  </city>
+  <city name='Casper'>
+    <region>wy</region>
+    <lat>42.85007</lat>
+    <long>-106.32517</long>
+  </city>
+  <city name='Tillamook'>
+    <region>or</region>
+    <lat>45.45621</lat>
+    <long>-123.84401</long>
+  </city>
+  <city name='Cincinnati'>
+    <region>oh</region>
+    <lat>39.10311</lat>
+    <long>-84.51201</long>
+  </city>
+  <city name='Pittsburgh'>
+    <region>pe</region>
+    <lat>40.43956</lat>
+    <long>-79.98986</long>
+  </city>
+  <city name='Alameda'>
+    <region>cl</region>
+    <lat>37.7652</lat>
+    <long>-122.24163</long>
+  </city>
+  <city name='Anahiem'>
+    <region>cl</region>
+    <lat>33.83659</lat>
+    <long>-117.9143</long>
+  </city>
+  <city name='Arcata'>
+    <region>cl</region>
+    <lat>40.86651</lat>
+    <long>-124.08283</long>
+  </city>
+  <city name='Memphis'>
+    <region>tn</region>
+    <lat>35.14953</lat>
+    <long>-90.04898</long>
+  </city>
 </cities>
