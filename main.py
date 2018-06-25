@@ -3,70 +3,13 @@ from math import sin, cos, sqrt, atan2, radians
 from fractions import Fraction
 import random
 import secrets
+import json
 
-cities = {
-    'Toronto': ['on', 43.654805, -79.380595],
-    'Montreal': ['qc', 45.501080, -73.568140],
-    'Ottawa': ['on', 45.415387, -75.565701],
-    'Edmonton': ['ab', 53.594894, -113.463576],
-    'Winnipeg': ['ma', 49.897735, -97.134426],
-    'Seattle': ['wa', 47.607286, -122.334005],
-    'Moscow': ['id', 46.731839, -117.010040],
-    'Philadelphia': ['pe', 39.961121, -75.160669],
-    'Fargo': ['nd', 46.876391, -96.783252],
-    'Brooklyn': ['ny', 40.679016, -73.936774],
-    'Concord': ['nh', 43.206977, -71.527225],
-    'Springfield': ['il', 39.781697, -89.651612],
-    'Kamloops': ['bc', 50.687770, -120.347863],
-    'Dallas': ['tx', 32.775833, -96.796667],
-    'Nashville': ['tn', 36.162725, -86.781820],
-    #'Salt Lake City': ['ut', 40.75, -111.883333],
-    'Houston': ['tx', 29.762778, -95.383056],
-    'Atlanta': ['ga', 33.755, -84.39],
-    'Calgary': ['ab', 51.04861, -114.07084],
-    'Hemingford': ['nb', 42.32162, -103.07297],
-    'Alexandria': ['mi', 45.88481, -95.37766],
-    'Rugby': ['nd', 48.36888, -99.99624],
-    'Chicago': ['il', 41.87811, -87.62979],
-    'Sioux Falls': ['sd', 43.54459, -96.7311],
-    'Casper': ['wy', 42.85007, -106.32517],
-    'Tillamook': ['or', 45.45621, -123.84401],
-    'Cincinnati': ['oh', 39.10311, -84.51201],
-    'Pittsburgh': ['pe', 40.43956, -79.98986],
-    'Alameda': ['cl', 37.7652, -122.24163],
-    'Anahiem': ['cl', 33.83659, -117.9143],
-    'Arcata': ['cl', 40.86651, -124.08283],
-    #'Santa Fe': ['nm', 35.68697, -105.93779],
-    'Memphis': ['tn', 35.14953, -90.04898]
-}
+with open("cities.json", "r") as cjson:
+    cities = json.load(cjson)
 
-regions = {
-    'bc': ['British Columbia', 'mountains', 'forest', 'snow', 'rainy', 'ca'],
-    'qc': ['Quebec', 'French', 'snow', 'arctic', 'rainy', 'ca'],
-    'on': ['Ontario', 'snow', 'cold', 'ca'],
-    'ab': ['Alberta', 'snow', 'cold', 'mountains', 'ca'],
-    'ma': ['Manitoba', 'ca'],
-    'wa': ['Washington', 'rainy', 'us'],
-    'wy': ['Wyoming', 'dry', 'windy', 'extreme', 'mountains', 'us'],
-    'id': ['Idaho', 'humid', 'rainy', 'freshwater', 'us'],
-    'pe': ['Pennsylvania', 'humid', 'cold', 'snow', 'dry', 'freshwater', 'us'],
-    'ny': ['New York', 'cold', 'dry', 'snow', 'forest', 'freshwater', 'us'],
-    'nd': ['North Dakota', 'hot', 'humid', 'mountains', 'us'],
-    'nh':
-    ['New Hampshire', 'windy', 'humid', 'snow', 'extreme', 'mountains', 'us'],
-    'il': ['Illinois', 'us'],
-    'tx': ['Texas', 'us'],
-    'tn': ['Tennessee', 'us'],
-    'ut': ['Utah', 'us'],
-    'ga': ['Georgia', 'us'],
-    'nb': ['Nebraska', 'us'],
-    'mi': ['Minnesota', 'us'],
-    'sd': ['South Dakota', 'us'],
-    'or': ['Oregon', 'us'],
-    'oh': ['Ohio', 'us'],
-    'cl': ['California', 'us'],
-    'nm': ['New Mexico', 'us']
-}
+with open("regions.json", "r") as rjson:
+    regions = json.load(rjson)
 
 
 def buildtrack(
