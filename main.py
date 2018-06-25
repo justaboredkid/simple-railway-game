@@ -257,8 +257,11 @@ def build(player, choicetag):  # Build menu
             else:
                 build = input("Where to go? (enter 'exit' to cancel)> ").title()
                 if build == 'Exit':
-                    print("Exiting...")
-                    return
+                    if len(list(stations[player])) == 1:
+                        print("Are you TRYING to break the game?")
+                    else:
+                        print("Exiting...")
+                        return
                 elif build not in list(cities.keys()):
                     print("Umm... Wrong city.")
                 elif build in list(project.values()):
@@ -356,24 +359,28 @@ def setup(faction, player):  # Game starting setup
 
 def nextweek():  # More like next month. Need to change that.
     for key in wages:
-        if due[key] <= 0:
-            print("Station " + str(project[key]) + " has completed!")
-            stations[key].append(project[key])
-            project[key] = ''
-        else:
-            if wages.get(key)[-1] == 1:
-                print("Player " + key.upper() + ": Wages")
-                cost = (
-                    (wages.get(key)[0] * (workers[key] * ratio.get(key)[0])) +
-                    (wages.get(key)[1] * (workers[key] * ratio.get(key)[1])) +
-                    (wages.get(key)[2] *
-                     (workers[key] * ratio.get(key)[2]))) * 4
-                moneychange(-cost, key)
-                due[key] -= 4
+        if project[key] != '':
+            if due[key] <= 0:
+                print("Station " + str(project[key]) + " has completed!")
+                stations[key].append(project[key])
+                project[key] = ''
             else:
-                print("Player " + key.upper() + " has " + str(due[key]) +
-                      " weeks left on " + project[key] + " station.")
-                due[key] -= 4
+                if wages.get(key)[-1] == 1:
+                    print("Player " + key.upper() + ": Wages")
+                    cost = ((wages.get(key)[0] *
+                             (workers[key] * ratio.get(key)[0])) +
+                            (wages.get(key)[1] *
+                             (workers[key] * ratio.get(key)[1])) +
+                            (wages.get(key)[2] *
+                             (workers[key] * ratio.get(key)[2]))) * 4
+                    moneychange(-cost, key)
+                    due[key] -= weekinc
+                else:
+                    print("Player " + key.upper() + " has " + str(due[key]) +
+                          " weeks left on " + project[key] + " station.")
+                    due[key] -= weekinc
+        else:
+            pass
 
     for key in monthpay:
         if monthpay.get(key)[-1] == 0:
@@ -402,7 +409,6 @@ def nextweek():  # More like next month. Need to change that.
             exit()
     for key in stations:
         for item in list(stations[key]):
-            print(item)
             moneychange(5000, key)
             print("from " + item + " station")
 
@@ -486,6 +492,13 @@ if __name__ == "__main__":
                 break
         except ValueError:
             print("Invalid number. You know what a number is, right?")
+
+    try:
+        weekinc = int(input("How many weeks per move? > "))
+    except ValueError:
+        print(
+            "What the heck? This is not a number. Do you think this program is dumb?"
+        )
 
     for key in factions:
         while True:
@@ -575,7 +588,7 @@ if __name__ == "__main__":
     for key in factions:
         build(key, 0)
 
-    week += 4
+    week = week + weekinc
     nextweek()
 
     while True:
@@ -614,7 +627,7 @@ if __name__ == "__main__":
                         exit()
                     if menu == 'n':
                         break
-        week += 4
+        week = week + weekinc
         nextweek()
 
 else:
