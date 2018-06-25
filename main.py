@@ -183,7 +183,7 @@ def buildtrack(
                                     print("It will take " + str(due[player]) +
                                           " weeks to complete.")
                                     moneychange(-cost, player)
-                                    project[player].append(destination)
+                                    project[player] = str(destination)
                                     return
                                 else:
                                     print("Building cancelled")
@@ -203,7 +203,7 @@ def buildtrack(
                                     print("It will take " + str(due[player]) +
                                           " weeks to complete.")
                                     moneychange(-(cost / time), player)
-                                    project[player].append(destination)
+                                    project[player] = str(destination)
                                     return
                                 else:
                                     break
@@ -255,16 +255,18 @@ def build(player, choicetag):  # Build menu
                     return
 
             else:
-                build = input("Where to go? >").title()
-                if build not in list(cities.keys()):
-                    print("Umm... Wrong city.")
-                elif build == 'exit':
+                build = input("Where to go? (enter 'exit' to cancel)> ").title()
+                if build == 'Exit':
                     print("Exiting...")
                     return
-                elif any(build in sl for sl in list(project.values())):
+                elif build not in list(cities.keys()):
+                    print("Umm... Wrong city.")
+                elif build in list(project.values()):
                     print("Someone else is taking that")
-                elif any(build in sl for sl in list(stations.values())) in list(
-                        stations.values()):
+                elif build in [
+                        elem for test in list(stations.values())
+                        for elem in test
+                ]:
                     print("Someone already got that station")
                 else:
                     track = buildtrack(starting, build, player, 0)
@@ -354,7 +356,7 @@ def setup(faction, player):  # Game starting setup
 
 def nextweek():  # More like next month. Need to change that.
     for key in wages:
-        if due[key] == 0:
+        if due[key] <= 0:
             print("Station " + str(project[key]) + " has completed!")
             stations[key].append(project[key])
             project[key] = ''
@@ -367,9 +369,11 @@ def nextweek():  # More like next month. Need to change that.
                     (wages.get(key)[2] *
                      (workers[key] * ratio.get(key)[2]))) * 4
                 moneychange(-cost, key)
-                due[key] -= 1
+                due[key] -= 4
             else:
-                due[key] -= 1
+                print("Player " + key.upper() + " has " + str(due[key]) +
+                      " weeks left on " + project[key] + " station.")
+                due[key] -= 4
 
     for key in monthpay:
         if monthpay.get(key)[-1] == 0:
@@ -575,33 +579,33 @@ if __name__ == "__main__":
     nextweek()
 
     while True:
-        for key in stations:
+        for item in list(factions.keys()):
             while True:
                 print("Week " + str(week) + " : ")
-                print("Player " + key.upper() + ": ")
+                print("Player " + item.upper() + ": ")
                 print('Options:')
                 print('1. Build More Railways')
                 print('2. Research')
                 print('3. Pay loan')
                 print('4. Stop game')
                 print('\nN: Next Player')
-                message("moneystat", 0, key)
+                message("moneystat", 0, item)
                 menu = input('> ').lower()
 
                 if menu not in ['1', '2', '3', '4', 'n']:
                     print('\nInvalid option.')
                 else:
                     if menu == '1':
-                        build(key, 0)
+                        build(item, 0)
                     if menu == '2':
                         print("This feature is still unavailable")
-                        # research(key)
+                        # research(item)
                     if menu == '3':
-                        if factions[key] is not 'p':
+                        if factions[item] is not 'p':
                             print(
                                 "Sorry, that option is not available for you.")
                         else:
-                            loan(key)
+                            loan(item)
                     if menu == '4':
                         for key in wages:
                             a = point(key)
@@ -610,9 +614,6 @@ if __name__ == "__main__":
                         exit()
                     if menu == 'n':
                         break
-                    else:
-                        print("Invalid option.")
-            break
         week += 4
         nextweek()
 
