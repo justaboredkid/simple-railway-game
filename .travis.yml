@@ -5,5 +5,5 @@ install:
   pip install cython
 
 script:
-  python3.6 testing.py
+  python3.6 testing.py;
   cython main.py
