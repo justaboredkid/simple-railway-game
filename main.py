@@ -606,7 +606,7 @@ if __name__ == "__main__":
                         for key in wages:
                             a = point(key)
                             print("Player " + key.upper() + " has " + str(a) +
-                                  points)
+                                  " points")
                         exit()
                     if menu == 'n':
                         break

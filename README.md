@@ -1,4 +1,4 @@
-# simple-railway-game
+# simple-railway-game  ![TRAVIS CI. It looks professional.](https://travis-ci.com/justaboredkid/simple-railway-game.svg?branch=master)
 
 
 **DISCLAIMER: The contributors and I are trying our best to make this game historically accurate. If you see a historical inconsistency, please open an issue.**  
@@ -11,7 +11,8 @@ This is a monopoly-like game where player builds railroads in order win. It is b
 
 ## Gameplay
 
-This game requires four people. However, an adjustable party size is in the works.
+~~This game requires four people. However, an adjustable party size is in the works.~~
+IT NOW SUPPORTS UP TO 26 PEOPLE!!!!!
 
 ### Choose between Government funded or privately funded (Factions)
 
@@ -121,6 +122,6 @@ Options:
 4. Stop game
 N: Next Player
 ```  
-From here, you can choose your path. **Research** allows faster build times and lower costs. You can also stop the game anytime. The winner is the person with the highest points.  
+From here, you can choose your path. **Research** allows faster build times and lower costs. However, that feature is not available yet. You can also stop the game anytime. The winner is the person with the highest points.  
 
 May the best win.
