@@ -360,10 +360,11 @@ def setup(faction, player):  # Game starting setup
 def nextweek():  # More like next month. Need to change that.
     for key in wages:
         if project[key] != '':
-            if due[key] <= 0:
+            if due[key] <= weekinc:
                 print("Station " + str(project[key]) + " has completed!")
                 stations[key].append(project[key])
                 project[key] = ''
+                due[key] = 0
             else:
                 if wages.get(key)[-1] == 1:
                     print("Player " + key.upper() + ": Wages")
@@ -631,6 +632,8 @@ if __name__ == "__main__":
         nextweek()
 
 else:
+    week = 4
+    weekinc = 4
     money = {'A': 2500000}
     workers = {'A': 0}
     due = {'A': 0}

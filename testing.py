@@ -1,4 +1,5 @@
 import main
+import sys
 
 
 def tests():
@@ -7,6 +8,7 @@ def tests():
     if 800 <= test1 <= 870:
         print("\n\nCHECK 1: DISTANCE ALGORITHM CHECK [✓]\n\n")
     else:
+        print(test1)
         print("\n\nCHECK 1: DISTANCE ALGORITHM CHECK [FAILED]\n\n")
         return '- Distance Algorithm Failure'
 
@@ -41,12 +43,18 @@ def tests():
 
     print("\n\nCHECK 4: RANDOM CITY SELECTION CHECK [✓]\n\n")
     main.due = {'A': 1}
+    main.project = {'A': 'testcityofdooomness'}
 
     try:
         test4 = main.nextweek()
         print("\n\nCHECK 5: NEXT WEEK FUNCTION [✓]")
         if main.due['A'] == 0:
-            print("    CHECK 5.1: HOURLY PAY METHOD [✓]")
+            if main.stations['A'].count('testcityofdooomness') == 1:
+                print("    CHECK 5.1: HOURLY PAY METHOD [✓]")
+            else:
+                print(main.stations['A'])
+                print("    CHECK 5.1: HOURLY PAY METHOD [FAILED]")
+                return '- Problem with appending station list'
         else:
             print(main.due['A'])
             print("    CHECK 5.1: HOURLY PAY METHOD [FAILED]")
@@ -59,17 +67,37 @@ def tests():
             print("    CHECK 5.2: LOAN CALCULATION [FAILED]")
             return "- 'if monthpay' did not catch"
 
-        if main.money['A'] == 2539500:
+        if main.money['A'] == 2544500:
             print("    CHECK 5.3: STATION PROFIT SYSTEM [✓]")
         else:
             print(main.money['A'])
             print("    CHECK 5.3: STATION PROFIT SYSTEM [FAILED]")
             return "- Unexpected behavior from profit"
 
-        return 0
     except:
         print("\n\nCHECK 5: NEXT WEEK FUNCTION [FAILED]\n\n")
         return "- Problem with function / test script"
 
+    main.weekinc = 20
+    print(main.week)
+    print(main.weekinc)
+
+    main.week = main.week + main.weekinc
+    main.nextweek()
+    if main.week == 24:
+        print("\n\nCHECK 6: WEEK INCREMENT [✓]\n\n")
+    else:
+        print(main.week)
+        print("\n\nCHECK 6: WEEK INCREMENT [FAILED]\n\n")
+        return '- Unexpected behavior from week increment'
+
+    return 0
+
+
 test = tests()
 print(test)
+if test == 0:
+    sys.exit(0)
+else:
+    print("ERROR")
+    sys.exit(1)
