@@ -67,7 +67,7 @@ def tests():
             print("    CHECK 5.2: LOAN CALCULATION [FAILED]")
             return "- 'if monthpay' did not catch"
 
-        if main.money['A'] == 2544500:
+        if main.money['A'] == 2589500:
             print("    CHECK 5.3: STATION PROFIT SYSTEM [✓]")
         else:
             print(main.money['A'])
