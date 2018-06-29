@@ -2,9 +2,13 @@ from __future__ import print_function
 from math import sin, cos, sqrt, atan2, radians
 from fractions import Fraction
 from datetime import datetime
+from blessings import Terminal
+from sys import exit
 import json
 import random
 import secrets
+
+term = Terminal()
 
 with open("cities.json", "r") as cjson:
     cities = json.load(cjson)
@@ -412,189 +416,210 @@ def research(player):
     pass
 
 
-print("\nDisclaimer: This game is based on 1860s money, not " +
-      str(datetime.now().year) + ". Inflation applies.")
-
 if __name__ == "__main__":
     try:
-        while True:
-            print("Hello There! Please select the amount of players. (2-26)")
-
-            try:
-                amount = int(input("> "))
-                if amount == 1:
-                    print(
-                        "loooonnnnely... I am mr loooonnnnely... I have nobody..... All on my owwwnnn!!!"
-                    )
-                elif amount < 0:
-                    print("Sorry, no downers allowed here.")
-                elif amount == 0:
-                    print("Really, then why do you bother to play.")
-                elif amount > 26:
-                    print("Too crowded.")
-                else:
-                    players = list(map(chr, range(97, 97 + amount)))
-                    initvalue = {p: 0 for p in players}
-                    money = dict(initvalue)
-                    workers = dict(initvalue)
-                    due = dict(initvalue)
-                    rnd = dict(initvalue)
-                    ethicality = {p: 100 for p in players}
-                    wages = {p: [0, 0, 0, 0] for p in players}
-                    monthpay = {p: [0, 0, 0] for p in players}
-                    stations = {p: [] for p in players}
-                    project = {p: '' for p in players}
-                    factions = dict(project)
-                    ratio = dict(monthpay)  #The values are the same
-                    break
-            except ValueError:
-                print("Invalid number. You know what a number is, right?")
-
-        while True:
-            try:
-                weekinc = int(input("How many weeks per move? > "))
-                if weekinc == 0:
-                    print("You cannot stop TIME.")
-                elif weekinc < 0:
-                    print("You cannot reverse TIME")
-                else:
-                    print(str(weekinc) + " weeks per move")
-                    break
-            except ValueError:
+        with term.fullscreen():
+            while True:
                 print(
-                    "What the heck? This is not a number. Do you think this program is dumb?"
-                )
-
-        for key in factions:
-            while True:
-                choice = input(
-                    "\nPlayer " + key.upper() +
-                    ": Select how you are going to start your railway: (Government/Private) >"
-                ).lower()
-                if choice not in ['g', 'p']:
-                    print("try again")
-                else:
-                    factions[key] = choice
-                    break
-
-        week = 0
-
-        for key in factions:
-            setup(factions[key], key)
-
-        for key in project:
-            while True:
-                print("Player " + key.upper() + ": ")
-                print("1. Select starting point")
-                print("2. Random city")
+                    term.move(0, 0) +
+                    "Disclaimer: This game is based on 1860s money, not " +
+                    str(datetime.now().year) + ". Inflation applies.")
+                print(
+                    "Hello There! Please select the amount of players. (2-26)")
                 try:
-                    select = int(input("> "))
-                    if select not in [1, 2]:
-                        print("Ummm... Nope.")
+                    amount = int(input("> "))
+                    if amount == 1:
+                        print(
+                            term.move_down +
+                            "loooonnnnely... I am mr loooonnnnely... I have nobody..... All on my owwwnnn!!!"
+                        )
+                        input("[Press enter to continue]")
+                        print(term.clear())
+                    elif amount < 0:
+                        print(term.move_down +
+                              "Sorry, no downers allowed here.")
+                        input("[Press enter to continue]")
+                        print(term.clear())
+                    elif amount == 0:
+                        print(term.move_down +
+                              "Really, then why do you bother to play.")
+                        input("[Press enter to continue]")
+                        print(term.clear())
+                    elif amount > 26:
+                        print(term.move_down + "Too crowded.")
+                        input("[Press enter to continue]")
+                        print(term.clear())
                     else:
-                        if select == 1:
-                            build(key, 1)
-                            break
-                        else:
-                            randomcity(key)
-                            break
+                        players = list(map(chr, range(97, 97 + amount)))
+                        initvalue = {p: 0 for p in players}
+                        money = dict(initvalue)
+                        workers = dict(initvalue)
+                        due = dict(initvalue)
+                        rnd = dict(initvalue)
+                        ethicality = {p: 100 for p in players}
+                        wages = {p: [0, 0, 0, 0] for p in players}
+                        monthpay = {p: [0, 0, 0] for p in players}
+                        stations = {p: [] for p in players}
+                        project = {p: '' for p in players}
+                        factions = dict(project)
+                        ratio = dict(monthpay)  #The values are the same
+                        print(term.clear())
+                        break
                 except ValueError:
-                    print("Not an option.")
-
-        for key in wages:
-            pay = [0, 0, 0, 0]
-            while True:
-                message("moneystat", 0, key)
-                print("\nAdjust wages between ethnic groups")
-                print("1. White")
-                print("2. Immigrants and Aboriginals")
-                print("3. Black")
-                print("4. All")
-                print("\nn: Next Step")
-                groups = input("> ").lower()
-                if groups not in ['1', '2', '3', '4', 'n']:
-                    print("\nreally?\n")
-
-                else:
-                    if groups == 'n':
-                        pay[-1] = 2
-                        wages[key] = pay
-                        break
-
-                    else:
-                        print("select amount")
-                        amount = input("$> ")
-                        try:
-                            if groups == '4':
-                                pay = [int(amount), int(amount), int(amount), 0]
-                            else:
-                                pay[int(groups) - 1] = int(amount)
-                        except ValueError:
-                            print("Nope")
+                    print(term.move_down +
+                          "Invalid number. You know what a number is, right?")
+                    input("[Press enter to continue]")
+                    print(term.clear())
 
             while True:
-                print("\n\n\n\nPlayer " + key.upper() + ": ")
-                print("Hourly or Per KM?")
-                print("1. Hourly")
-                print("2. per KM")
-                print("n: Next Player")
-                per = input("> ").lower()
-                if per not in ['1', '2', 'n']:
-                    print("\nSELECT THE NUMBER!!\n")
-                elif per == 'n':
-                    if pay[-1] not in ['1', '2', 'n']:
-                        print("Hey! How are you going to pay them?")
+                try:
+                    weekinc = int(input("How many weeks per move? > "))
+                    if weekinc == 0:
+                        print("You cannot stop TIME.")
+                    elif weekinc < 0:
+                        print("You cannot reverse TIME")
                     else:
-                        print("\n" * 20)
+                        print(str(weekinc) + " weeks per move")
                         break
-                else:
-                    pay[-1] = per
+                except ValueError:
+                    print(
+                        "What the heck? This is not a number. Do you think this program is dumb?"
+                    )
 
-        for key in factions:
-            build(key, 0)
-
-        week = week + weekinc
-        nextweek()
-
-        while True:
-            for item in list(factions.keys()):
+            for key in factions:
                 while True:
-                    print("Week " + str(week) + " : ")
-                    print("Player " + item.upper() + ": ")
-                    print('Options:')
-                    print('1. Build More Railways')
-                    print('2. Research')
-                    print('3. Pay loan')
-                    print('4. Stop game')
-                    print('\nN: Next Player')
-                    message("moneystat", 0, item)
-                    menu = input('> ').lower()
-
-                    if menu not in ['1', '2', '3', '4', 'n']:
-                        print('\nInvalid option.')
+                    choice = input(
+                        "\nPlayer " + key.upper() +
+                        ": Select how you are going to start your railway: (Government/Private) >"
+                    ).lower()
+                    if choice not in ['g', 'p']:
+                        print("try again")
                     else:
-                        if menu == '1':
-                            build(item, 0)
-                        if menu == '2':
-                            print("This feature is still unavailable")
-                            # research(item)
-                        if menu == '3':
-                            if factions[item] != 'p':
-                                print(
-                                    "Sorry, that option is not available for you."
-                                )
+                        factions[key] = choice
+                        break
+
+            week = 0
+
+            for key in factions:
+                setup(factions[key], key)
+
+            for key in project:
+                while True:
+                    print("Player " + key.upper() + ": ")
+                    print("1. Select starting point")
+                    print("2. Random city")
+                    try:
+                        select = int(input("> "))
+                        if select not in [1, 2]:
+                            print("Ummm... Nope.")
+                        else:
+                            if select == 1:
+                                build(key, 1)
+                                break
                             else:
-                                loan(item)
-                        if menu == '4':
-                            for key in wages:
-                                a = point(key)
-                                print("Player " + key.upper() + " has " +
-                                      str(a) + " points")
-                            exit()
-                        if menu == 'n':
+                                randomcity(key)
+                                break
+                    except ValueError:
+                        print("Not an option.")
+
+            for key in wages:
+                pay = [0, 0, 0, 0]
+                while True:
+                    message("moneystat", 0, key)
+                    print("\nAdjust wages between ethnic groups")
+                    print("1. White")
+                    print("2. Immigrants and Aboriginals")
+                    print("3. Black")
+                    print("4. All")
+                    print("\nn: Next Step")
+                    groups = input("> ").lower()
+                    if groups not in ['1', '2', '3', '4', 'n']:
+                        print("\nreally?\n")
+
+                    else:
+                        if groups == 'n':
+                            pay[-1] = 2
+                            wages[key] = pay
                             break
+
+                        else:
+                            print("select amount")
+                            amount = input("$> ")
+                            try:
+                                if groups == '4':
+                                    pay = [
+                                        int(amount),
+                                        int(amount),
+                                        int(amount), 0
+                                    ]
+                                else:
+                                    pay[int(groups) - 1] = int(amount)
+                            except ValueError:
+                                print("Nope")
+
+                while True:
+                    print("\n\n\n\nPlayer " + key.upper() + ": ")
+                    print("Hourly or Per KM?")
+                    print("1. Hourly")
+                    print("2. per KM")
+                    print("n: Next Player")
+                    per = input("> ").lower()
+                    if per not in ['1', '2', 'n']:
+                        print("\nSELECT THE NUMBER!!\n")
+                    elif per == 'n':
+                        if pay[-1] not in ['1', '2', 'n']:
+                            print("Hey! How are you going to pay them?")
+                        else:
+                            print("\n" * 20)
+                            break
+                    else:
+                        pay[-1] = per
+
+            for key in factions:
+                build(key, 0)
+
             week = week + weekinc
             nextweek()
+
+            while True:
+                for item in list(factions.keys()):
+                    while True:
+                        print("Week " + str(week) + " : ")
+                        print("Player " + item.upper() + ": ")
+                        print('Options:')
+                        print('1. Build More Railways')
+                        print('2. Research')
+                        print('3. Pay loan')
+                        print('4. Stop game')
+                        print('\nN: Next Player')
+                        message("moneystat", 0, item)
+                        menu = input('> ').lower()
+
+                        if menu not in ['1', '2', '3', '4', 'n']:
+                            print('\nInvalid option.')
+                        else:
+                            if menu == '1':
+                                build(item, 0)
+                            if menu == '2':
+                                print("This feature is still unavailable")
+                                # research(item)
+                            if menu == '3':
+                                if factions[item] != 'p':
+                                    print(
+                                        "Sorry, that option is not available for you."
+                                    )
+                                else:
+                                    loan(item)
+                            if menu == '4':
+                                for key in wages:
+                                    a = point(key)
+                                    print("Player " + key.upper() + " has " +
+                                          str(a) + " points")
+                                exit()
+                            if menu == 'n':
+                                break
+                week = week + weekinc
+                nextweek()
     except KeyboardInterrupt:
         print("\n\nQuitting forcefully...")
         exit()
