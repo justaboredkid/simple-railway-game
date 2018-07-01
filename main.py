@@ -157,7 +157,7 @@ def buildtrack(
                                     break
     else:
         print("no building 4 u")
-        return
+        return 'project'
 
 
 def build(player, choicetag):  # Build menu
@@ -167,8 +167,21 @@ def build(player, choicetag):  # Build menu
         if choicetag == 1:
             starting = ''
         else:
-            starting = stations.get(player)[0]
-            print(starting)
+            if len(list(stations[player])) == 1:
+                starting = stations.get(player)[0]
+                print(starting)
+            else:
+                print(stations.get(player))
+                while True:
+                    starting = input("Where to start? > ").title()
+                    if starting not in list(cities.keys()):
+                        print("Err... try again.")
+                    elif starting in list(project.values()):
+                        print("Someone else is taking that")
+                    elif starting not in list(stations.get(player)):
+                        print("You don't own that station")
+                    else:
+                        break
         for key in cities:
             if choicetag == 1:
                 if project[player] is '':
@@ -187,6 +200,11 @@ def build(player, choicetag):  # Build menu
                     l = buildtrack(starting, key, player, 1)
                     if l is None:
                         pass
+                    elif l == 'project':
+                        print(
+                            "You are still building tracks, you cannot build another station."
+                        )
+                        return
                     else:
                         distance.append(
                             [key, regions[cities.get(key)[0]][0], l])
@@ -203,11 +221,13 @@ def build(player, choicetag):  # Build menu
                     return
 
             else:
+                print(stations[player])
                 build = input("Where to go? (enter 'exit' to cancel)> ").title()
                 if build == 'Exit':
                     if len(list(stations[player])) == 1:
                         print("Are you TRYING to break the game?")
                     else:
+                        print(len(list(stations[player])))
                         print("Exiting...")
                         return
                 elif build not in list(cities.keys()):
@@ -431,7 +451,7 @@ if __name__ == "__main__":
                     if amount == 1:
                         print(
                             term.move_down +
-                            "loooonnnnely... I am mr loooonnnnely... I have nobody..... All on my owwwnnn!!!"
+                            "loooonnnnely... I am mr loooonnnnely... I have nobody..... fooooor my owwwnnn!!!"
                         )
                         input("[Press enter to continue]")
                         print(term.clear())
