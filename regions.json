@@ -1,0 +1,137 @@
+{
+  "bc": [
+    "British Columbia",
+    "mountains",
+    "forest",
+    "snow",
+    "rainy",
+    "ca"
+  ],
+  "qc": [
+    "Quebec",
+    "French",
+    "snow",
+    "arctic",
+    "rainy",
+    "ca"
+  ],
+  "on": [
+    "Ontario",
+    "snow",
+    "cold",
+    "ca"
+  ],
+  "ab": [
+    "Alberta",
+    "snow",
+    "cold",
+    "mountains",
+    "ca"
+  ],
+  "ma": [
+    "Manitoba",
+    "ca"
+  ],
+  "wa": [
+    "Washington",
+    "rainy",
+    "us"
+  ],
+  "wy": [
+    "Wyoming",
+    "dry",
+    "windy",
+    "extreme",
+    "mountains",
+    "us"
+  ],
+  "id": [
+    "Idaho",
+    "humid",
+    "rainy",
+    "freshwater",
+    "us"
+  ],
+  "pe": [
+    "Pennsylvania",
+    "humid",
+    "cold",
+    "snow",
+    "dry",
+    "freshwater",
+    "us"
+  ],
+  "ny": [
+    "New York",
+    "cold",
+    "dry",
+    "snow",
+    "forest",
+    "freshwater",
+    "us"
+  ],
+  "nd": [
+    "North Dakota",
+    "hot",
+    "humid",
+    "mountains",
+    "us"
+  ],
+  "nh": [
+    "New Hampshire",
+    "windy",
+    "humid",
+    "snow",
+    "extreme",
+    "mountains",
+    "us"
+  ],
+  "il": [
+    "Illinois",
+    "us"
+  ],
+  "tx": [
+    "Texas",
+    "us"
+  ],
+  "tn": [
+    "Tennessee",
+    "us"
+  ],
+  "ut": [
+    "Utah",
+    "us"
+  ],
+  "ga": [
+    "Georgia",
+    "us"
+  ],
+  "nb": [
+    "Nebraska",
+    "us"
+  ],
+  "mi": [
+    "Minnesota",
+    "us"
+  ],
+  "sd": [
+    "South Dakota",
+    "us"
+  ],
+  "or": [
+    "Oregon",
+    "us"
+  ],
+  "oh": [
+    "Ohio",
+    "us"
+  ],
+  "cl": [
+    "California",
+    "us"
+  ],
+  "nm": [
+    "New Mexico",
+    "us"
+  ]
+}

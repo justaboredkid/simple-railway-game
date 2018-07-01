@@ -5,5 +5,5 @@ install:
   pip install cython
 
 script:
-  python3.6 testing.py;
-  cython main.py
+  chmod +x test.sh;
+  ./test.sh
