@@ -2,18 +2,19 @@ from __future__ import print_function
 from math import sin, cos, sqrt, atan2, radians
 from fractions import Fraction
 from datetime import datetime
-from blessings import Terminal
+from blessings import Terminal  # The only 3rd party library. I don't like Curses.
 from sys import exit
 import json
 import random
 import secrets
+import sys
 
 term = Terminal()
 
-with open("cities.json", "r") as cjson:
+with open("data/cities.json", "r") as cjson:
     cities = json.load(cjson)
 
-with open("regions.json", "r") as rjson:
+with open("data/regions.json", "r") as rjson:
     regions = json.load(rjson)
 
 
@@ -171,56 +172,75 @@ def build(player, choicetag):  # Build menu
                 starting = stations.get(player)[0]
                 print(starting)
             else:
-                print(stations.get(player))
                 while True:
-                    starting = input("Where to start? > ").title()
+                    print(stations.get(player))
+                    starting = input(term.move_down +
+                                     "Where to start? > ").title()
                     if starting not in list(cities.keys()):
                         print("Err... try again.")
+                        input("[Did you spell it wrong? Press enter to retry.]")
+                        print(term.clear())
                     elif starting in list(project.values()):
                         print("Someone else is taking that")
+                        input("[That's someone else's land. *sigh*]")
+                        print(term.clear())
                     elif starting not in list(stations.get(player)):
                         print("You don't own that station")
+                        input("[Don't try to take over one's station.]")
+                        print(term.clear())
                     else:
+                        print(term.clear())
                         break
-        for key in cities:
-            if choicetag == 1:
-                if project[player] is '':
-                    print(key)
-                    distance = []
-                else:
-                    if project[player] == list(regions[list(
+
+        while True:
+            for key in cities:
+                # Temp fix. append location to list in future
+                if choicetag == 1:
+                    if project[player] is '':
+                        print(key)
+                        distance = []
+                    elif project[player] == list(regions[list(
                             cities.get(key))[0]])[-1]:
                         print(key)
                     else:
                         pass
-            else:
-                if key == starting:
-                    pass
+
                 else:
-                    l = buildtrack(starting, key, player, 1)
-                    if l is None:
+                    if key == starting:
                         pass
-                    elif l == 'project':
-                        print(
-                            "You are still building tracks, you cannot build another station."
-                        )
-                        return
+
                     else:
-                        distance.append(
-                            [key, regions[cities.get(key)[0]][0], l])
-        print(distance, "\n")
-        while True:
+                        l = buildtrack(starting, key, player, 1)
+                        if l is None:
+                            pass
+                        elif l == 'project':
+                            print(
+                                "You are still building tracks, you cannot build another station."
+                            )
+                            input("[Patience is key. Press enter now.]")
+                            print(term.clear())
+                            return
+                        else:
+                            distance.append(
+                                [key, regions[cities.get(key)[0]][0], l])
+
             if choicetag == 1:
-                pick = input("Starting station: >").title()
+                pick = input(term.move_down + "Starting station: >").title()
                 if pick in list(stations.values()):
                     print("Really? Nuuupe")
+                    input("[Press le Enter (Totally not French)]")
+                    print(term.clear())
                 elif pick not in list(cities.keys()):
                     print("Wow.")
+                    input("[press_enter_msg(): cannot be found]")
+                    print(term.clear())
                 else:
                     stations[player].append(pick)
+                    print(term.clear())
                     return
 
             else:
+                print(distance, "\n")
                 print(stations[player])
                 build = input("Where to go? (enter 'exit' to cancel)> ").title()
                 if build == 'Exit':
@@ -286,13 +306,18 @@ def setup(faction, player):  # Game starting setup
             "\nPlayer " + player.upper() +
             ", you have chosen to get funded by the Government. You get less money, but you don't have to pay back."
         )  # add what this means, word formating
-        print("Which project do you want to participate in?")
+        print(term.move_down + "Which project do you want to participate in?")
         while True:
             project[player] = input("(CA/US)> ")
             project[player] = project[player].lower()
             if project[player] not in ['ca', 'us']:
                 print("\nYeah... Nope.\n")
+                input(
+                    "[Press enter to continue... or not. I have all the time in the world. Your friend, however, don't.]"
+                )
+                print(term.clear())
             else:
+                print(term.clear())
                 break
 
     if faction == "p":
@@ -306,19 +331,22 @@ def setup(faction, player):  # Game starting setup
         for key in time:
             time[key] = random.randint(25, 50)
         print("Player " + player.upper() + ", choose your investor:")
-        for key in interest:
-            print("Investor " + key.upper() + ": " + str(inipay[key]) + " " +
-                  str(interest[key]) + "% per " + str(time[key]) + " weeks")
         while True:
-            investor = input("> ")
-            investor = investor.lower()
+            for key in interest:
+                print("Investor " + key.upper() + ": " + str(inipay[key]) +
+                      " " + str(interest[key]) + "% per " + str(time[key]) +
+                      " weeks")
+            investor = input(term.move_down + "> ").lower()
             if investor not in ['a', 'b', 'c']:
                 print("that investor does not exist.")
+                input("[Press enter to cross the sidewalk of shame.]")
+                print(term.clear())
             else:
                 moneychange(inipay[investor], player)
                 monthpay[player] = [
                     interest[investor] / 10, time[investor], inipay[investor]
                 ]
+                print(term.clear())
                 break
 
     if faction == "c":  #Chain funding (Chain of train stations (NO RAILRD))
@@ -326,6 +354,7 @@ def setup(faction, player):  # Game starting setup
 
 
 def nextweek():  # More like next month. Need to change that.
+    print(term.clear())
     for key in wages:
         if project[key] != '':
             if due[key] <= weekinc:
@@ -351,6 +380,9 @@ def nextweek():  # More like next month. Need to change that.
         else:
             pass
 
+    input("[Press enter to continue]")
+    print(term.clear())
+
     for key in monthpay:
         if monthpay.get(key)[-1] == 0:
             print("Player " + key.upper() + " does not need to repay anything")
@@ -366,6 +398,9 @@ def nextweek():  # More like next month. Need to change that.
                 print("Player " + key.upper() + ", you now owe $" +
                       str(list(monthpay.get(key))[-1]))
 
+    input("[Press enter to continue]")
+    print(term.clear())
+
     for key in due:
         if due[key] == 0:
             break
@@ -375,15 +410,20 @@ def nextweek():  # More like next month. Need to change that.
 
     for key in money:
         if money[key] <= 0:
+            print(term.clear())
             print("GAME OVER. Player " + key.upper() + " Filed for bankruptcy")
             for key in wages:
                 a = point(key)
                 print("Player " + key.upper() + str(a))
-            exit()
+            sys.exit()
+
     for key in stations:
         for item in list(stations[key]):
             moneychange(10000, key)
             print("from " + item + " station")
+
+    input("[Press enter to continue]")
+    print(term.clear())
 
 
 def randomcity(player):  # Select random city
@@ -394,6 +434,7 @@ def randomcity(player):  # Select random city
         elif project[player] is '':
             stations[player].append(rcity)
             print("Your starting city is " + rcity)
+            input("[Press enter to continue]")
             return
         else:
             if regions[cities[rcity][0]][-1] not in project[player]:
@@ -402,6 +443,7 @@ def randomcity(player):  # Select random city
                 stations[player].append(rcity)
                 project[player] = []
                 print("Your starting city is " + rcity)
+                input("[Press enter to continue]")
                 return
 
 
@@ -495,16 +537,23 @@ if __name__ == "__main__":
                 try:
                     weekinc = int(input("How many weeks per move? > "))
                     if weekinc == 0:
-                        print("You cannot stop TIME.")
+                        print(term.move_down + "You cannot stop TIME.")
+                        input("[Press enter to continue]")
+                        print(term.clear())
                     elif weekinc < 0:
-                        print("You cannot reverse TIME")
+                        print(term.move_down + "You cannot reverse TIME")
+                        input("[Press enter to continue]")
+                        print(term.clear())
                     else:
-                        print(str(weekinc) + " weeks per move")
+                        print(term.clear())
                         break
                 except ValueError:
                     print(
+                        term.move_down +
                         "What the heck? This is not a number. Do you think this program is dumb?"
                     )
+                    input("[Press enter to continue]")
+                    print(term.clear())
 
             for key in factions:
                 while True:
@@ -513,11 +562,13 @@ if __name__ == "__main__":
                         ": Select how you are going to start your railway: (Government/Private) >"
                     ).lower()
                     if choice not in ['g', 'p']:
-                        print("try again")
+                        print(term.move_down + "try again")
+                        input("[Press enter to continue]")
+                        print(term.clear())
                     else:
                         factions[key] = choice
                         break
-
+            print(term.clear())
             week = 0
 
             for key in factions:
@@ -532,6 +583,9 @@ if __name__ == "__main__":
                         select = int(input("> "))
                         if select not in [1, 2]:
                             print("Ummm... Nope.")
+                            input(
+                                "[Just 1 or 2 will suffice... Press enter...]")
+                            print(term.clear())
                         else:
                             if select == 1:
                                 build(key, 1)
@@ -541,6 +595,8 @@ if __name__ == "__main__":
                                 break
                     except ValueError:
                         print("Not an option.")
+                        input("[No bugs for you.]")
+                        print(term.clear())
 
             for key in wages:
                 pay = [0, 0, 0, 0]
@@ -635,14 +691,14 @@ if __name__ == "__main__":
                                     a = point(key)
                                     print("Player " + key.upper() + " has " +
                                           str(a) + " points")
-                                exit()
+                                sys.exit()
                             if menu == 'n':
                                 break
                 week = week + weekinc
                 nextweek()
     except KeyboardInterrupt:
         print("\n\nQuitting forcefully...")
-        exit()
+        sys.exit()
 
 else:
     week = 4
